@@ -11,62 +11,39 @@ struct CameraView: View {
     @StateObject var model = CameraViewModel()
     
     
-    var captureButton: some View {
-        Button(action: {
-            model.capturePhoto()
-        }, label: {
-            Circle()
-                .foregroundColor(.white)
-                .frame(width: 73, height: 73, alignment: .center)
-
-        })
-    }
-    
-
-    
-
-    
     var body: some View {
-
-                
+        
+//        Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
+//            Text("Flash On").tag(true)
+//            Text("Flash Off").tag(false)
+//        })
+        
         ZStack {
-                VStack {
-                   
-                    Spacer()
-                    CameraPreview(session: model.session)
-                        
-                        .aspectRatio(3/4, contentMode: .fit)
+            VStack {
 
-                        .onAppear {
-                            model.configure()
-                        }
+                Spacer()
+                Spacer()
+                CameraPreview(session: model.session)
 
-                    
-                    Spacer()
-                    GeometryReader { geometry in
-                        
-                            captureButton.position(x: geometry.size.width/2)
-                            
-                            Menu {
-                                
-                            } label: {
-                                Image(systemName: "ellipsis.circle.fill").font(.title).padding(28).foregroundColor(.white)
-                            }.position(x: geometry.size.width - (geometry.size.width - (geometry.size.width + 73)/2)/2)
-                        
-                        .frame(height: 73)
-                        .onAppear {
-                            print(geometry.size.width)
-                            print(geometry.size.height)
-                        }
-                        
-                    }.frame(height: 73)
+                    .aspectRatio(3/4, contentMode: .fit)
 
-                    Spacer()
-                    
-                }
-            
-            
+                    .onAppear {
+                        model.configure()
+                    }
+
+
+                Spacer()
+                Spacer()
+                Spacer()
+                CaptureInterface(model: model)
+                
+
+                Spacer()
+
+            }
+
+
         }.background(Color.black.edgesIgnoringSafeArea(.all))
-      
+        
     }
 }

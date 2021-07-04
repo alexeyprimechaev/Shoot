@@ -14,6 +14,7 @@
 		802BC70F2691FD93006EFB0B /* CheckForPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7082691FD93006EFB0B /* CheckForPermissions.swift */; };
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
+		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
 		80FB2A882691F98000D6790A /* ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A872691F98000D6790A /* ShootApp.swift */; };
 		80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A892691F98000D6790A /* ContentView.swift */; };
 		80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80FB2A8B2691F98000D6790A /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		802BC7082691FD93006EFB0B /* CheckForPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckForPermissions.swift; sourceTree = "<group>"; };
 		802BC7092691FD93006EFB0B /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		802BC70A2691FD93006EFB0B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		8045285B26921A130019F97C /* CaptureInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureInterface.swift; sourceTree = "<group>"; };
 		80FB2A842691F98000D6790A /* Shoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80FB2A872691F98000D6790A /* ShootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootApp.swift; sourceTree = "<group>"; };
 		80FB2A892691F98000D6790A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				802BC7062691FD93006EFB0B /* CameraPreview.swift */,
 				802BC7042691FD93006EFB0B /* CameraService.swift */,
 				802BC7072691FD93006EFB0B /* CameraView.swift */,
+				8045285B26921A130019F97C /* CaptureInterface.swift */,
 				802BC7092691FD93006EFB0B /* CameraViewModel.swift */,
 				802BC7082691FD93006EFB0B /* CheckForPermissions.swift */,
 				802BC70A2691FD93006EFB0B /* Photo.swift */,
@@ -165,6 +168,7 @@
 				802BC7112691FD93006EFB0B /* Photo.swift in Sources */,
 				80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */,
 				802BC70E2691FD93006EFB0B /* CameraView.swift in Sources */,
+				8045285C26921A130019F97C /* CaptureInterface.swift in Sources */,
 				802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */,
 				80FB2A882691F98000D6790A /* ShootApp.swift in Sources */,
 				802BC70B2691FD93006EFB0B /* CameraService.swift in Sources */,

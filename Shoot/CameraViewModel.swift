@@ -17,6 +17,8 @@ final class CameraViewModel: ObservableObject {
     
     @Published var isFlashOn = false
     
+    @Published var selectedCamera: AVCaptureDevice.DeviceType = .builtInWideAngleCamera
+    
     var alertError: AlertError!
     
     var session: AVCaptureSession
@@ -38,8 +40,13 @@ final class CameraViewModel: ObservableObject {
         }
         .store(in: &self.subscriptions)
         
-        service.$flashMode.sink { [weak self] (mode) in
-            self?.isFlashOn = mode == .on
+        self.$isFlashOn.sink { [weak self] (isOn) in
+            self?.service.flashMode = isOn ? .on : .off
+        }
+        .store(in: &self.subscriptions)
+        
+        self.$selectedCamera.sink { [weak self] (selectedCamera) in
+            self?.service.selectedCamera = selectedCamera
         }
         .store(in: &self.subscriptions)
     }
@@ -61,7 +68,5 @@ final class CameraViewModel: ObservableObject {
         service.set(zoom: factor)
     }
     
-    func switchFlash() {
-        service.flashMode = service.flashMode == .on ? .off : .on
-    }
+
 }
