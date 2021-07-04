@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
 		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
+		80452860269223600019F97C /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 8045285F269223600019F97C /* VisualEffects */; };
 		80FB2A882691F98000D6790A /* ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A872691F98000D6790A /* ShootApp.swift */; };
 		80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A892691F98000D6790A /* ContentView.swift */; };
 		80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80FB2A8B2691F98000D6790A /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80452860269223600019F97C /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +111,9 @@
 			dependencies = (
 			);
 			name = Shoot;
+			packageProductDependencies = (
+				8045285F269223600019F97C /* VisualEffects */,
+			);
 			productName = Shoot;
 			productReference = 80FB2A842691F98000D6790A /* Shoot.app */;
 			productType = "com.apple.product-type.application";
@@ -136,6 +141,9 @@
 				Base,
 			);
 			mainGroup = 80FB2A7B2691F97F00D6790A;
+			packageReferences = (
+				8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */,
+			);
 			productRefGroup = 80FB2A852691F98000D6790A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -360,6 +368,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/VisualEffects";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8045285F269223600019F97C /* VisualEffects */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */;
+			productName = VisualEffects;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80FB2A7C2691F97F00D6790A /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import VisualEffects
 
 struct CameraView: View {
     @StateObject var model = CameraViewModel()
@@ -23,13 +24,15 @@ struct CameraView: View {
 
                 Spacer()
                 Spacer()
-                CameraPreview(session: model.session)
-
-                    .aspectRatio(3/4, contentMode: .fit)
-
-                    .onAppear {
-                        model.configure()
-                    }
+                ZStack {
+                    
+                    CameraPreview(session: model.session)
+                        .aspectRatio(3/4, contentMode: .fit)
+                        .onAppear {
+                            model.configure()
+                        }
+                   
+                }
 
 
                 Spacer()

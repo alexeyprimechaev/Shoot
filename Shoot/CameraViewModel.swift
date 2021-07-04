@@ -17,7 +17,13 @@ final class CameraViewModel: ObservableObject {
     
     @Published var isFlashOn = false
     
-    @Published var selectedCamera: AVCaptureDevice.DeviceType = .builtInWideAngleCamera
+    @Published var isCameraButtonDisabled = false
+    
+    @Published var selectedCamera: AVCaptureDevice.DeviceType = .builtInWideAngleCamera {
+        willSet {
+            changeCamera()
+        }
+    }
     
     var alertError: AlertError!
     
@@ -37,6 +43,11 @@ final class CameraViewModel: ObservableObject {
         service.$shouldShowAlertView.sink { [weak self] (val) in
             self?.alertError = self?.service.alertError
             self?.showAlertError = val
+        }
+        .store(in: &self.subscriptions)
+        
+        service.$isCameraButtonDisabled.sink { [weak self] (isCameraButtonDisabled) in
+            self?.isCameraButtonDisabled = isCameraButtonDisabled
         }
         .store(in: &self.subscriptions)
         
@@ -60,7 +71,7 @@ final class CameraViewModel: ObservableObject {
         service.capturePhoto()
     }
     
-    func flipCamera() {
+    func changeCamera() {
         service.changeCamera()
     }
     

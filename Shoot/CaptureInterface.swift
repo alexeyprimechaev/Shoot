@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CaptureInterface: View {
     
@@ -89,27 +90,16 @@ struct CaptureInterface: View {
             .position(x: geometry.size.width/2)
 
             Menu {
-                Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
-                    Label("Telephoto", systemImage: "circle.grid.cross.up.fill")
-                    Label("Wide", systemImage: "circle.grid.cross.right.fill").tag(true)
-                    Label("Ultrawide", systemImage: "circle.grid.cross.down.fill")
+                Picker(selection: $model.selectedCamera, label: Text("Flash"), content: {
+                    Label("Telephoto", systemImage: "circle.grid.cross.up.fill").tag(AVCaptureDevice.DeviceType.builtInTelephotoCamera)
+                    Label("Wide", systemImage: "circle.grid.cross.right.fill").tag(AVCaptureDevice.DeviceType.builtInWideAngleCamera)
+                    Label("Ultrawide", systemImage: "circle.grid.cross.down.fill").tag(AVCaptureDevice.DeviceType.builtInUltraWideCamera)
                 })
                 Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
                     Label("Flash On", systemImage: "bolt").tag(true)
                     Label("Flash Off", systemImage: "bolt.slash").tag(false)
                 })
                 
-                Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
-                    Menu {
-                        Text("grid setup")
-                        Text("grid setup")
-                        Text("grid setup")
-                    } label: {
-                        Text("grid setup")
-                    }
-                    Label("Grid", systemImage: "square.split.2x2").tag(true)
-                    Label("Natural", systemImage: "square").tag(false)
-                })
                 
                 
             } label: {

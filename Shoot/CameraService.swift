@@ -221,16 +221,16 @@ public class CameraService: NSObject {
                 switch currentPosition {
                 case .unspecified, .front:
                     preferredPosition = .back
-                    preferredDeviceType = .builtInWideAngleCamera
+                    preferredDeviceType = self.selectedCamera
                     
                 case .back:
-                    preferredPosition = .front
-                    preferredDeviceType = .builtInWideAngleCamera
+                    preferredPosition = .back
+                    preferredDeviceType = self.selectedCamera
                     
                 @unknown default:
                     print("Unknown capture position. Defaulting to back, dual-camera.")
                     preferredPosition = .back
-                    preferredDeviceType = .builtInWideAngleCamera
+                    preferredDeviceType = self.selectedCamera
                 }
                 let devices = self.videoDeviceDiscoverySession.devices
                 var newVideoDevice: AVCaptureDevice? = nil
