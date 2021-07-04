@@ -46,5 +46,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>Privacy - Camera Usage Description</key>
+    <string>APPNAME requires access to your phone’s camera.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Access camera</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Library</string>
 </dict>
 </plist>
