@@ -8,6 +8,10 @@
 import Combine
 import AVFoundation
 
+public enum SelectedCamera {
+    case front,wide,ultrawide,telephoto
+}
+
 final class CameraViewModel: ObservableObject {
     private let service = CameraService()
     
@@ -19,11 +23,22 @@ final class CameraViewModel: ObservableObject {
     
     @Published var isCameraButtonDisabled = false
     
-    @Published var selectedCamera: AVCaptureDevice.DeviceType = .builtInWideAngleCamera {
-        willSet {
-            changeCamera()
+    @Published var selectedCamera: SelectedCamera = .wide {
+        didSet {
+            if oldValue != selectedCamera {
+                changeCamera()
+            }
         }
     }
+    
+    @Published var selectedCameraPosition: AVCaptureDevice.Position = .back {
+        didSet {
+            if oldValue != selectedCameraPosition {
+                changeCamera()
+            }
+        }
+    }
+    
     
     var alertError: AlertError!
     

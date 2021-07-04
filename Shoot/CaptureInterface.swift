@@ -91,9 +91,10 @@ struct CaptureInterface: View {
 
             Menu {
                 Picker(selection: $model.selectedCamera, label: Text("Flash"), content: {
-                    Label("Telephoto", systemImage: "circle.grid.cross.up.fill").tag(AVCaptureDevice.DeviceType.builtInTelephotoCamera)
-                    Label("Wide", systemImage: "circle.grid.cross.right.fill").tag(AVCaptureDevice.DeviceType.builtInWideAngleCamera)
-                    Label("Ultrawide", systemImage: "circle.grid.cross.down.fill").tag(AVCaptureDevice.DeviceType.builtInUltraWideCamera)
+                    Label("Telephoto", systemImage: "circle.grid.cross.up.fill").tag(SelectedCamera.telephoto)
+                    Label("Wide", systemImage: "circle.grid.cross.right.fill").tag(SelectedCamera.wide)
+                    Label("Ultrawide", systemImage: "circle.grid.cross.down.fill").tag(SelectedCamera.ultrawide)
+                    Label("Front", systemImage: "circle.grid.cross.down.fill").tag(SelectedCamera.front)
                 })
                 Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
                     Label("Flash On", systemImage: "bolt").tag(true)

@@ -14,33 +14,24 @@ struct CameraView: View {
     
     var body: some View {
         
-//        Picker(selection: $model.isFlashOn, label: Text("Flash"), content: {
-//            Text("Flash On").tag(true)
-//            Text("Flash Off").tag(false)
-//        })
         
         ZStack {
             VStack {
-
                 Spacer()
                 Spacer()
-                ZStack {
-                    
-                    CameraPreview(session: model.session)
-                        .aspectRatio(3/4, contentMode: .fit)
-                        .onAppear {
-                            model.configure()
-                        }
-                   
-                }
+                CameraPreview(session: model.session)
+                    .aspectRatio(3/4, contentMode: .fit)
+                    .onAppear {
+                        model.configure()
+                    }
+                
+                
 
 
                 Spacer()
                 Spacer()
                 Spacer()
                 CaptureInterface(model: model)
-                
-
                 Spacer()
 
             }

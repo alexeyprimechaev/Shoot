@@ -18,7 +18,7 @@ public class CameraService: NSObject {
     // MARK: Observed Properties UI must react to
     
     @Published public var flashMode: AVCaptureDevice.FlashMode = .off
-    @Published public var selectedCamera: AVCaptureDevice.DeviceType = .builtInWideAngleCamera
+    @Published public var selectedCamera: SelectedCamera = .wide
     @Published public var shouldShowAlertView = false
     @Published public var shouldShowSpinner = false
     @Published public var willCapturePhoto = false
@@ -95,7 +95,7 @@ public class CameraService: NSObject {
             
             session.beginConfiguration()
             
-            session.sessionPreset = .photo
+        session.sessionPreset = .photo
             
             // Add video input.
             do {
@@ -104,7 +104,7 @@ public class CameraService: NSObject {
                 if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
                     // If a rear dual camera is not available, default to the rear wide angle camera.
                     defaultVideoDevice = backCameraDevice
-                } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+                } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
                     // If the rear wide angle camera isn't available, default to the front wide angle camera.
                     defaultVideoDevice = frontCameraDevice
                 }
@@ -204,75 +204,75 @@ public class CameraService: NSObject {
             }
         }
     
+    
     public func changeCamera() {
             //        MARK: Here disable all camera operation related buttons due to configuration is due upon and must not be interrupted
             DispatchQueue.main.async {
                 self.isCameraButtonDisabled = true
             }
             //
-            
+
             sessionQueue.async {
-                let currentVideoDevice = self.videoDeviceInput.device
-                let currentPosition = currentVideoDevice.position
                 
                 let preferredPosition: AVCaptureDevice.Position
                 let preferredDeviceType: AVCaptureDevice.DeviceType
                 
-                switch currentPosition {
-                case .unspecified, .front:
+                switch self.selectedCamera {
+                case .front:
+                    preferredPosition = .front
+                    preferredDeviceType = .builtInWideAngleCamera
+                case .wide:
                     preferredPosition = .back
-                    preferredDeviceType = self.selectedCamera
-                    
-                case .back:
+                    preferredDeviceType = .builtInWideAngleCamera
+                case .ultrawide:
                     preferredPosition = .back
-                    preferredDeviceType = self.selectedCamera
-                    
-                @unknown default:
-                    print("Unknown capture position. Defaulting to back, dual-camera.")
+                    preferredDeviceType = .builtInUltraWideCamera
+                case .telephoto:
                     preferredPosition = .back
-                    preferredDeviceType = self.selectedCamera
+                    preferredDeviceType = .builtInTelephotoCamera
                 }
+
                 let devices = self.videoDeviceDiscoverySession.devices
                 var newVideoDevice: AVCaptureDevice? = nil
-                
-                // First, seek a device with both the preferred position and device type. Otherwise, seek a device with only the preferred position.
+
+
                 if let device = devices.first(where: { $0.position == preferredPosition && $0.deviceType == preferredDeviceType }) {
                     newVideoDevice = device
-                } else if let device = devices.first(where: { $0.position == preferredPosition }) {
+                } else if let device = devices.first {
                     newVideoDevice = device
                 }
-                
+
                 if let videoDevice = newVideoDevice {
                     do {
                         let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
-                        
+
                         self.session.beginConfiguration()
-                        
+
                         // Remove the existing device input first, because AVCaptureSession doesn't support
                         // simultaneous use of the rear and front cameras.
                         self.session.removeInput(self.videoDeviceInput)
-                        
+
                         if self.session.canAddInput(videoDeviceInput) {
                             self.session.addInput(videoDeviceInput)
                             self.videoDeviceInput = videoDeviceInput
                         } else {
                             self.session.addInput(self.videoDeviceInput)
                         }
-                        
+
                         if let connection = self.photoOutput.connection(with: .video) {
                             if connection.isVideoStabilizationSupported {
                                 connection.preferredVideoStabilizationMode = .auto
                             }
                         }
-                        
+
                         self.photoOutput.maxPhotoQualityPrioritization = .quality
-                        
+
                         self.session.commitConfiguration()
                     } catch {
                         print("Error occurred while creating video device input: \(error)")
                     }
                 }
-                
+
                 DispatchQueue.main.async {
     //                MARK: Here enable capture button due to successfull setup
                     self.isCameraButtonDisabled = false
@@ -308,7 +308,6 @@ public class CameraService: NSObject {
                     if  self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
                         photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
                     }
-                    
                     // Sets the flash option for this capture.
                     if self.videoDeviceInput.device.isFlashAvailable {
                         photoSettings.flashMode = self.flashMode
