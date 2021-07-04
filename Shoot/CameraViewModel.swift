@@ -8,9 +8,50 @@
 import Combine
 import AVFoundation
 
-public enum SelectedCamera {
-    case front,wide,ultrawide,telephoto
+extension AVCaptureDevice {
+    func cameraType() -> CameraType {
+        
+        if self.position == .back {
+            
+            switch self.deviceType {
+            case .builtInTelephotoCamera:
+                return.telephoto
+            case .builtInWideAngleCamera:
+                return .wide
+            case .builtInUltraWideCamera:
+                return .ultrawide
+            default:
+                return .wide
+            }
+
+        } else {
+            return .front
+        }
+    }
+    
 }
+
+func availableDeviceTypes() -> [CameraType] {
+    var availableDeviceTypes = [CameraType]()
+    
+    let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInTelephotoCamera, .builtInUltraWideCamera], mediaType: .video, position: .unspecified)
+    let devices = videoDeviceDiscoverySession.devices
+    
+    for cameraTypeIn in CameraType.allCases {
+        print(cameraTypeIn)
+        if let device = devices.first(where: { $0.cameraType() == cameraTypeIn }) {
+            availableDeviceTypes.append(cameraTypeIn)
+        }
+    }
+    return availableDeviceTypes
+}
+
+public enum CameraType: String, CaseIterable {
+    case ultrawide, wide, telephoto, front
+}
+
+public let defaultsStored = UserDefaults.standard
+
 
 final class CameraViewModel: ObservableObject {
     private let service = CameraService()
@@ -19,13 +60,24 @@ final class CameraViewModel: ObservableObject {
     
     @Published var showAlertError = false
     
-    @Published var isFlashOn = false
+    @Published var isFlashOn = ((defaultsStored.value(forKey: "isFlashOn") ?? false) as! Bool) {
+        didSet {
+            defaultsStored.set(isFlashOn, forKey: "isFlashOn")
+        }
+    }
+    
+    @Published var gridLines = ((defaultsStored.value(forKey: "gridLines") ?? 0) as! Int) {
+        didSet {
+            defaultsStored.set(gridLines, forKey: "gridLines")
+        }
+    }
     
     @Published var isCameraButtonDisabled = false
     
-    @Published var selectedCamera: SelectedCamera = .wide {
+    @Published var selectedCamera: CameraType = CameraType(rawValue: ((defaultsStored.value(forKey: "selectedCamera") ?? CameraType.wide.rawValue) as! String)) ?? .wide {
         didSet {
             if oldValue != selectedCamera {
+                defaultsStored.set(selectedCamera.rawValue, forKey: "selectedCamera")
                 changeCamera()
             }
         }

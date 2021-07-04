@@ -18,7 +18,7 @@ public class CameraService: NSObject {
     // MARK: Observed Properties UI must react to
     
     @Published public var flashMode: AVCaptureDevice.FlashMode = .off
-    @Published public var selectedCamera: SelectedCamera = .wide
+    @Published public var selectedCamera: CameraType = .wide
     @Published public var shouldShowAlertView = false
     @Published public var shouldShowSpinner = false
     @Published public var willCapturePhoto = false
@@ -101,12 +101,31 @@ public class CameraService: NSObject {
             do {
                 var defaultVideoDevice: AVCaptureDevice?
                 
-                if let backCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
-                    // If a rear dual camera is not available, default to the rear wide angle camera.
-                    defaultVideoDevice = backCameraDevice
-                } else if let frontCameraDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
-                    // If the rear wide angle camera isn't available, default to the front wide angle camera.
-                    defaultVideoDevice = frontCameraDevice
+                let preferredPosition: AVCaptureDevice.Position
+                let preferredDeviceType: AVCaptureDevice.DeviceType
+                
+                switch self.selectedCamera {
+                case .front:
+                    preferredPosition = .front
+                    preferredDeviceType = .builtInWideAngleCamera
+                case .wide:
+                    preferredPosition = .back
+                    preferredDeviceType = .builtInWideAngleCamera
+                case .ultrawide:
+                    preferredPosition = .back
+                    preferredDeviceType = .builtInUltraWideCamera
+                case .telephoto:
+                    preferredPosition = .back
+                    preferredDeviceType = .builtInTelephotoCamera
+                }
+
+                let devices = self.videoDeviceDiscoverySession.devices
+
+
+                if let device = devices.first(where: { $0.position == preferredPosition && $0.deviceType == preferredDeviceType }) {
+                    defaultVideoDevice = device
+                } else if let device = devices.first {
+                    defaultVideoDevice = device
                 }
                 
                 guard let videoDevice = defaultVideoDevice else {
