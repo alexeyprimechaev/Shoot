@@ -341,6 +341,8 @@ public class CameraService: NSObject {
                     
                     photoSettings.photoQualityPrioritization = .quality
                     
+                    
+                    
                     let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
                         // Tells the UI to flash the screen to signal that SwiftCamera took a photo.
                         DispatchQueue.main.async {

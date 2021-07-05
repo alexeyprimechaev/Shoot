@@ -31,6 +31,14 @@ extension AVCaptureDevice {
     
 }
 
+enum CaptureFormat: String {
+    case heic, raw, proRaw
+}
+
+enum GridFormat: String {
+    case square, full
+}
+
 func availableDeviceTypes() -> [CameraType] {
     var availableDeviceTypes = [CameraType]()
     
@@ -60,6 +68,14 @@ final class CameraViewModel: ObservableObject {
     
     @Published var showAlertError = false
     
+    @Published var captureFormat: CaptureFormat = CaptureFormat(rawValue: ((defaultsStored.value(forKey: "captureFormat") ?? CaptureFormat.heic.rawValue) as! String)) ?? .heic {
+        didSet {
+            if oldValue != captureFormat {
+                defaultsStored.set(captureFormat.rawValue, forKey: "captureFormat")
+            }
+        }
+    }
+    
     @Published var isFlashOn = ((defaultsStored.value(forKey: "isFlashOn") ?? false) as! Bool) {
         didSet {
             defaultsStored.set(isFlashOn, forKey: "isFlashOn")
@@ -71,6 +87,15 @@ final class CameraViewModel: ObservableObject {
             defaultsStored.set(gridLines, forKey: "gridLines")
         }
     }
+    
+    @Published var gridFormat: GridFormat = GridFormat(rawValue: ((defaultsStored.value(forKey: "gridFormat") ?? GridFormat.full.rawValue) as! String)) ?? .full {
+        didSet {
+            if oldValue != gridFormat {
+                defaultsStored.set(gridFormat.rawValue, forKey: "gridFormat")
+            }
+        }
+    }
+    
     
     @Published var isCameraButtonDisabled = false
     
