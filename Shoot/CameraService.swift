@@ -162,6 +162,9 @@ public class CameraService: NSObject {
                 photoOutput.isHighResolutionCaptureEnabled = true
                 photoOutput.maxPhotoQualityPrioritization = .quality
                 
+                print("isSupportedHere?")
+                print(photoOutput.isAppleProRAWSupported)
+                
                 photoOutput.isAppleProRAWEnabled = photoOutput.isAppleProRAWSupported
                 
             } else {
@@ -351,7 +354,6 @@ public class CameraService: NSObject {
                     }
                     
                     photoSettings.isHighResolutionPhotoEnabled = true
-                    
                     // Sets the preview thumbnail pixel format
                     if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                         photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
@@ -397,6 +399,10 @@ public class CameraService: NSObject {
                         }
                     })
                     
+                    if let photoOutputConnection = self.photoOutput.connection(with: AVMediaType.video) {
+                        photoOutputConnection.videoOrientation = managePhotoOrientation()
+                    }
+                    
                     // The photo output holds a weak reference to the photo capture delegate and stores it in an array to maintain a strong reference.
                     self.inProgressPhotoCaptureDelegates[RAWphotoCaptureProcessor.requestedPhotoSettings.uniqueID] = RAWphotoCaptureProcessor
                     self.photoOutput.capturePhoto(with: photoSettings, delegate: RAWphotoCaptureProcessor)
@@ -404,4 +410,35 @@ public class CameraService: NSObject {
             }
         }
     
+}
+
+
+func managePhotoOrientation() -> AVCaptureVideoOrientation {
+    var currentDevice: UIDevice
+    currentDevice = .current
+    UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+    var deviceOrientation: UIDeviceOrientation
+    deviceOrientation = currentDevice.orientation
+    
+    
+
+    var captureOrientation: AVCaptureVideoOrientation
+
+    if deviceOrientation == .portrait {
+        captureOrientation = .portrait
+        print("Device: Portrait")
+    }else if (deviceOrientation == .landscapeLeft){
+        captureOrientation = .landscapeRight
+        print("Device: LandscapeLeft")
+    }else if (deviceOrientation == .landscapeRight){
+        captureOrientation = .landscapeLeft
+        print("Device LandscapeRight")
+    }else if (deviceOrientation == .portraitUpsideDown){
+        captureOrientation = .portraitUpsideDown
+        print("Device PortraitUpsideDown")
+    }else{
+        captureOrientation = .portrait
+    }
+    
+    return captureOrientation
 }

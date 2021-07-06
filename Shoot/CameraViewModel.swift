@@ -80,9 +80,15 @@ public let defaultsStored = UserDefaults.standard
 final class CameraViewModel: ObservableObject {
     private let service = CameraService()
     
-    var isProRAWSupported: Bool = {
-        let photoOutput = AVCapturePhotoOutput()
-        return photoOutput.isAppleProRAWSupported
+    @Published var isProRAWSupported: Bool = {
+        let rawFormatQuery = {AVCapturePhotoOutput.isBayerRAWPixelFormat($0)}
+        if let rawFormat = AVCapturePhotoOutput().availableRawPhotoPixelFormatTypes.first(where: rawFormatQuery) {
+            print("gooood")
+            return true
+        } else {
+            print("baaaad")
+            return false
+        }
     }()
     
     @Published var photo: Photo!

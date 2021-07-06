@@ -289,6 +289,7 @@ struct ConfigurationMenu: View {
                         Label("Alexey Primechaev", image: "alesha")
                     }
                     Text("Made in Moscow with ❤️")
+                    Divider()
                     
                     
                 } label: {
