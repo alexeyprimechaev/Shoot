@@ -15,6 +15,7 @@
 		802BC70F2691FD93006EFB0B /* CheckForPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7082691FD93006EFB0B /* CheckForPermissions.swift */; };
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
+		803A509D26947EDB002D09C6 /* 3Lens.png in Resources */ = {isa = PBXBuildFile; fileRef = 803A509B26947D0F002D09C6 /* 3Lens.png */; };
 		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
 		80452860269223600019F97C /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 8045285F269223600019F97C /* VisualEffects */; };
 		80FB2A882691F98000D6790A /* ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A872691F98000D6790A /* ShootApp.swift */; };
@@ -32,6 +33,7 @@
 		802BC7082691FD93006EFB0B /* CheckForPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckForPermissions.swift; sourceTree = "<group>"; };
 		802BC7092691FD93006EFB0B /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		802BC70A2691FD93006EFB0B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		803A509B26947D0F002D09C6 /* 3Lens.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3Lens.png; sourceTree = "<group>"; };
 		8045285B26921A130019F97C /* CaptureInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureInterface.swift; sourceTree = "<group>"; };
 		80FB2A842691F98000D6790A /* Shoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80FB2A872691F98000D6790A /* ShootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootApp.swift; sourceTree = "<group>"; };
@@ -56,6 +58,7 @@
 		80FB2A7B2691F97F00D6790A = {
 			isa = PBXGroup;
 			children = (
+				803A509B26947D0F002D09C6 /* 3Lens.png */,
 				80FB2A862691F98000D6790A /* Shoot */,
 				80FB2A852691F98000D6790A /* Products */,
 			);
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				80FB2A8F2691F98000D6790A /* Preview Assets.xcassets in Resources */,
+				803A509D26947EDB002D09C6 /* 3Lens.png in Resources */,
 				80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,14 +313,14 @@
 		80FB2A942691F98000D6790A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "12 Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Shoot/Preview Content\"";
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -331,14 +335,14 @@
 		80FB2A952691F98000D6790A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "12 Pro";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Shoot/Preview Content\"";
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

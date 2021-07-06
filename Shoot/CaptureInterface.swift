@@ -82,7 +82,13 @@ struct CaptureInterface: View {
                 
                 ZStack {
             Button {
-                model.capturePhoto()
+                UIApplication.shared.setAlternateIconName("3Lens") { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Success!")
+                    }
+                }
             } label: {
                 Circle()
                     .foregroundColor(.white)
@@ -172,26 +178,7 @@ struct CaptureInterface: View {
                 
             } label: {
                 HStack {
-                    VStack {
-                        switch model.selectedCamera {
-                        case .telephoto:
-                            if let device = UIDevice.modelName == "iPhone 12 Pro Max" {
-                                Text("65").font(.headline).fixedSize()
-                            } else {
-                                Text("52").font(.headline).fixedSize()
-                            }
-                        case .wide:
-                            Text("26").font(.headline).fixedSize()
-                        case .ultrawide:
-                            Text("13").font(.headline).fixedSize()
-                        case .front:
-                            Text("FF").font(.headline).fixedSize()
-                        }
-                        if model.selectedCamera != .front {
-                            Text("mm").font(.caption).fixedSize()
-                        }
-                        
-                    }
+                    CameraIcon(selectedCamera: $model.selectedCamera)
                     if model.isFlashOn {
                         Image(systemName: "bolt.fill")
                     }
@@ -246,6 +233,7 @@ struct TitleButtonStyle: ButtonStyle {
     
 }
 
+
 public func regularHaptic() {
     let generator = UIImpactFeedbackGenerator(style: .rigid)
     generator.impactOccurred()
@@ -268,5 +256,57 @@ struct DeviceRotationViewModifier: ViewModifier {
 extension View {
     func onRotate(perform action: @escaping (UIDeviceOrientation) -> Void) -> some View {
         self.modifier(DeviceRotationViewModifier(action: action))
+    }
+}
+
+
+extension View {
+    func snapshot() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        let view = controller.view
+
+        let targetSize = controller.view.intrinsicContentSize
+        view?.bounds = CGRect(origin: .zero, size: targetSize)
+        view?.backgroundColor = .clear
+
+        let renderer = UIGraphicsImageRenderer(size: targetSize)
+
+        return renderer.image { _ in
+            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
+}
+
+struct CameraIcon: View {
+    
+    @Binding var selectedCamera: CameraType
+    
+    var body: some View {
+        VStack {
+            switch selectedCamera {
+            case .telephoto:
+                if UIDevice.modelName == "iPhone 12 Pro Max" {
+                    Text("65").font(.headline).fixedSize()
+                } else {
+                    Text("52").font(.headline).fixedSize()
+                }
+            case .wide:
+                if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
+                    Text("28").font(.headline).fixedSize()
+                } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
+                    Text("26").font(.headline).fixedSize()
+                } else {
+                    Text("33").font(.headline).fixedSize()
+                }
+            case .ultrawide:
+                Text("13").font(.headline).fixedSize()
+            case .front:
+                Text("FF").font(.headline).fixedSize()
+            }
+            if selectedCamera != .front {
+                Text("mm").font(.caption).fixedSize()
+            }
+            
+        }
     }
 }
