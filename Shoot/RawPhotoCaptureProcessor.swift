@@ -8,7 +8,7 @@
 import Foundation
 import Photos
 
-class PhotoCaptureProcessor: NSObject {
+class RawPhotoCaptureProcessor: NSObject {
     
     lazy var context = CIContext()
 
@@ -16,7 +16,7 @@ class PhotoCaptureProcessor: NSObject {
     
     private let willCapturePhotoAnimation: () -> Void
     
-    private let completionHandler: (PhotoCaptureProcessor) -> Void
+    private let completionHandler: (RawPhotoCaptureProcessor) -> Void
     
     private let photoProcessingHandler: (Bool) -> Void
     
@@ -29,7 +29,7 @@ class PhotoCaptureProcessor: NSObject {
     private var maxPhotoProcessingTime: CMTime?
         
 //    Init takes multiple closures to be called in each step of the photco capture process
-    init(with requestedPhotoSettings: AVCapturePhotoSettings, willCapturePhotoAnimation: @escaping () -> Void, completionHandler: @escaping (PhotoCaptureProcessor) -> Void, photoProcessingHandler: @escaping (Bool) -> Void) {
+    init(with requestedPhotoSettings: AVCapturePhotoSettings, willCapturePhotoAnimation: @escaping () -> Void, completionHandler: @escaping (RawPhotoCaptureProcessor) -> Void, photoProcessingHandler: @escaping (Bool) -> Void) {
         
         self.requestedPhotoSettings = requestedPhotoSettings
         self.willCapturePhotoAnimation = willCapturePhotoAnimation
@@ -38,7 +38,7 @@ class PhotoCaptureProcessor: NSObject {
     }
 }
 
-extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
+extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     
     // This extension adopts AVCapturePhotoCaptureDelegate protocol methods.
     

@@ -63,21 +63,22 @@ struct CaptureInterface: View {
         } else {
             GeometryReader { geometry in
             
-//            Group {
-//                       if model.photo != nil {
-//                           Image(uiImage: model.photo.image!)
-//                               .resizable()
-//                               .aspectRatio(contentMode: .fill)
-//                               .frame(width: 32, height: 32)
-//                               .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-//                               .animation(.spring())
-//
-//                       } else {
-//                           RoundedRectangle(cornerRadius: 8)
-//                               .frame(width: 52, height: 52, alignment: .center)
-//                               .foregroundColor(.black)
-//                       }
-//                   }.position(x: (geometry.size.width - (geometry.size.width + 73)/2)/2)
+            Group {
+                       if model.photo != nil {
+                           Image(uiImage: model.photo.image!)
+                               .resizable()
+                               .aspectRatio(contentMode: .fill)
+                               .frame(width: 32, height: 32)
+                               .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                               .animation(.spring())
+
+                       } else {
+                           RoundedRectangle(cornerRadius: 8)
+                               .frame(width: 52, height: 52, alignment: .center)
+                               .foregroundColor(.black)
+                       }
+            }.padding(28).rotationEffect(rotation).animation(.easeOut(duration: 0.2)).position(x: (geometry.size.width - (geometry.size.width + 73)/2)/2)
+                    
                 
                 ZStack {
             Button {
@@ -156,10 +157,10 @@ struct CaptureInterface: View {
                         Text("Configure Grid...")
                     }
                     Menu {
-                        Picker(selection: .constant(true), label: Text("Format"), content: {
-                            Label("HEIC", systemImage: "").tag(true)
-                            Label("RAW", systemImage: "").tag(false)
-                            Label("ProRAW", systemImage: "").tag(false)
+                        Picker(selection: $model.captureFormat, label: Text("Format"), content: {
+                            Label("HEIC", systemImage: "").tag(CaptureFormat.heic)
+                            Label("RAW", systemImage: "").tag(CaptureFormat.raw)
+                            Label("ProRAW", systemImage: "").tag(CaptureFormat.proRaw)
                         })
                     } label: {
                         Text("Capture Format...")

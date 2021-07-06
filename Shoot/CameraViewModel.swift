@@ -31,7 +31,7 @@ extension AVCaptureDevice {
     
 }
 
-enum CaptureFormat: String {
+public enum CaptureFormat: String {
     case heic, raw, proRaw
 }
 
@@ -167,6 +167,11 @@ final class CameraViewModel: ObservableObject {
         
         self.$isFlashOn.sink { [weak self] (isOn) in
             self?.service.flashMode = isOn ? .on : .off
+        }
+        .store(in: &self.subscriptions)
+        
+        self.$captureFormat.sink { [weak self] (captureFormat) in
+            self?.service.captureFormat = captureFormat
         }
         .store(in: &self.subscriptions)
         

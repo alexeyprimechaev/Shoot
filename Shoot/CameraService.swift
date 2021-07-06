@@ -22,6 +22,7 @@ public class CameraService: NSObject {
     @Published public var shouldShowAlertView = false
     @Published public var shouldShowSpinner = false
     @Published public var willCapturePhoto = false
+    @Published public var captureFormat: CaptureFormat = .raw
     @Published public var isCameraButtonDisabled = true
     @Published public var isCameraUnavailable = true
     @Published public var photo: Photo?
@@ -48,7 +49,7 @@ public class CameraService: NSObject {
     // MARK: Capturing Photos Properties
     private let photoOutput = AVCapturePhotoOutput()
     
-    private var inProgressPhotoCaptureDelegates = [Int64: PhotoCaptureProcessor]()
+    private var inProgressPhotoCaptureDelegates = [Int64: RawPhotoCaptureProcessor]()
     
     public func checkForPermissions() {
           
@@ -324,21 +325,25 @@ public class CameraService: NSObject {
                         photoOutputConnection.videoOrientation = .portrait
                     }
                     
-                    
-                    let query = self.photoOutput.isAppleProRAWEnabled ?
-                        { AVCapturePhotoOutput.isAppleProRAWPixelFormat($0) } :
-                        { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
+                
+                    let proRAWQuery = { AVCapturePhotoOutput.isAppleProRAWPixelFormat($0) }
+                    let rawQuery = { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
 
                     // Retrieve the RAW format, favoring Apple ProRAW when enabled.
-                    guard let rawFormat =
-                            self.photoOutput.availableRawPhotoPixelFormatTypes.first(where: query) else {
+                    guard let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRaw ? proRAWQuery : rawQuery) else {
                         fatalError("No RAW format found.")
                     }
 
                     // Capture a RAW format photo, along with a processed format photo.
                     let processedFormat = [AVVideoCodecKey: AVVideoCodecType.hevc]
-                    let photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat,
+                    
+                    var photoSettings = AVCapturePhotoSettings(format: processedFormat)
+                    
+                    if self.captureFormat != .heic {
+   
+                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat,
                                                                processedFormat: processedFormat)
+                    }
                     
                     // Capture HEIF photos when supported. Enable according to user settings and high-resolution photos.
                     // Sets the flash option for this capture.
@@ -353,12 +358,14 @@ public class CameraService: NSObject {
                         photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
                     }
                     
-                    photoSettings.photoQualityPrioritization = .quality
+                    if self.captureFormat != .raw {
+                        photoSettings.photoQualityPrioritization = .quality
+                    }
                     
                     
                     
                     
-                    let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
+                    let RAWphotoCaptureProcessor = RawPhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
                         // Tells the UI to flash the screen to signal that SwiftCamera took a photo.
                         DispatchQueue.main.async {
                             self.willCapturePhoto.toggle()
@@ -392,8 +399,8 @@ public class CameraService: NSObject {
                     })
                     
                     // The photo output holds a weak reference to the photo capture delegate and stores it in an array to maintain a strong reference.
-                    self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
-                    self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
+                    self.inProgressPhotoCaptureDelegates[RAWphotoCaptureProcessor.requestedPhotoSettings.uniqueID] = RAWphotoCaptureProcessor
+                    self.photoOutput.capturePhoto(with: photoSettings, delegate: RAWphotoCaptureProcessor)
                 }
             }
         }
