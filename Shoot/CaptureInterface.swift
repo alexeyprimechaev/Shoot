@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVFoundation
+import StoreKit
 
 struct CaptureInterface: View {
     
@@ -263,7 +264,32 @@ struct ConfigurationMenu: View {
             //                })
             Divider()
             Menu {
-                Button {
+                Menu {
+                    
+                    Text("1.0 “Uno”")
+                    
+                    Divider()
+                   
+                    Link(destination: URL(string: "mailto:monochromestudios@icloud.com")!) {
+                        Label("Contact Us", systemImage: "envelope")
+                    }
+                    
+                    Button {
+                        SKStoreReviewController.requestReview()
+                    } label: {
+                        Label("Rate App", systemImage: "star")
+                    }
+                    
+                    Divider()
+                    
+                    Link(destination: URL(string: "https://twitter.com/stopUIKit")!) {
+                        Label("Igor Dyachuk", image: "igor")
+                    }
+                    Link(destination: URL(string: "https://twitter.com/FetchRequested")!) {
+                        Label("Alexey Primechaev", image: "alesha")
+                    }
+                    Text("Made in Moscow with ❤️")
+                    
                     
                 } label: {
                     Label("About", systemImage: "info.circle")
@@ -286,9 +312,11 @@ struct ConfigurationMenu: View {
                 }
                 Menu {
                     Picker(selection: $model.captureFormat, label: Text("Format"), content: {
-                        Label("HEIC", systemImage: "").tag(CaptureFormat.heic)
+                        Label("HEIC", systemImage: "").tag(CaptureFormat.heif)
                         Label("RAW", systemImage: "").tag(CaptureFormat.raw)
-                        Label("ProRAW", systemImage: "").tag(CaptureFormat.proRaw)
+                        if model.isProRAWSupported {
+                            Label("ProRAW", systemImage: "").tag(CaptureFormat.proRAW)
+                        }
                     })
                 } label: {
                     Text("Capture Format...")

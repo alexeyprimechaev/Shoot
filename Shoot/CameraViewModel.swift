@@ -32,7 +32,7 @@ extension AVCaptureDevice {
 }
 
 public enum CaptureFormat: String {
-    case heic, raw, proRaw
+    case heif, raw, proRAW
 }
 
 enum GridFormat: String {
@@ -80,11 +80,16 @@ public let defaultsStored = UserDefaults.standard
 final class CameraViewModel: ObservableObject {
     private let service = CameraService()
     
+    var isProRAWSupported: Bool = {
+        let photoOutput = AVCapturePhotoOutput()
+        return photoOutput.isAppleProRAWSupported
+    }()
+    
     @Published var photo: Photo!
     
     @Published var showAlertError = false
     
-    @Published var captureFormat: CaptureFormat = CaptureFormat(rawValue: ((defaultsStored.value(forKey: "captureFormat") ?? CaptureFormat.heic.rawValue) as! String)) ?? .heic {
+    @Published var captureFormat: CaptureFormat = CaptureFormat(rawValue: ((defaultsStored.value(forKey: "captureFormat") ?? CaptureFormat.heif.rawValue) as! String)) ?? .heif {
         didSet {
             if oldValue != captureFormat {
                 defaultsStored.set(captureFormat.rawValue, forKey: "captureFormat")

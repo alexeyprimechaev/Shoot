@@ -330,7 +330,7 @@ public class CameraService: NSObject {
                     let rawQuery = { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
 
                     // Retrieve the RAW format, favoring Apple ProRAW when enabled.
-                    guard let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRaw ? proRAWQuery : rawQuery) else {
+                    guard let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRAW ? proRAWQuery : rawQuery) else {
                         fatalError("No RAW format found.")
                     }
 
@@ -339,7 +339,7 @@ public class CameraService: NSObject {
                     
                     var photoSettings = AVCapturePhotoSettings(format: processedFormat)
                     
-                    if self.captureFormat != .heic {
+                    if self.captureFormat != .heif {
    
                         photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat)
                     }
