@@ -81,13 +81,7 @@ struct CaptureInterface: View {
                 
                 ZStack {
             Button {
-                UIApplication.shared.setAlternateIconName("AppIcon-2") { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
+                model.capturePhoto()
             } label: {
                 Circle()
                     .foregroundColor(.white)
@@ -119,67 +113,87 @@ struct CaptureInterface: View {
                     }
                     
                 })
-                Picker(selection: $numberOfLines, label: Text("Grid"), content: {
-                    
-                    if numberOfLines != 0 {
-                        Menu {
-                            Picker(selection: $numberOfLines, label: Text("Flash"), content: {
-                                Label("1 Line", systemImage: "square.split.2x2").tag(2)
-                                Label("2 Lines", image: "grid.3x3").tag(3)
-                            })
-                            
-                            Picker(selection: $model.gridFormat, label: Text("Grid Format"), content: {
-                                
-                                Label("Full", systemImage: "rectangle.portrait").tag(GridFormat.full)
-                                Label("Square", systemImage: "square").tag(GridFormat.square)
-                                
-                            })
-                        } label: {
-                            Text("Configure Grid...")
-                        }
-                        
-                        
+                Picker(selection: $model.showGrid, label: Text("Grid"), content: {
+                    if !model.showGrid {
+                        Label("Toggle Grid", systemImage: "square").tag(true)
                     } else {
-                        Label("Grid", systemImage: "square.split.2x2").tag(3)
+                        Label("Toggle Grid", systemImage: "square.split.2x2").tag(false)
                     }
-                    Label("Natural", systemImage: "square").tag(0)
+                    
                 })
                 
                 
                 
                 Picker(selection: $model.isFlashOn, label: Text("Flash Setting"), content: {
-                    Label("Flash On", systemImage: "bolt").tag(true)
-                    Label("Flash Off", systemImage: "bolt.slash").tag(false)
+                    
+                    if model.isFlashOn {
+                        Label("Toggle Flash", systemImage: "bolt").tag(false)
+                    } else {
+                        Label("Toggle Flash", systemImage: "bolt.slash").tag(true)
+                    }
+                    
+                    
                 })
                 
-                Picker(selection: .constant(true), label: Text("Format"), content: {
-                    Label("HEIC", systemImage: "").tag(true)
-                    Label("RAW", systemImage: "").tag(false)
-                    Label("ProRAW", systemImage: "").tag(false)
-                })
-                
+//                Picker(selection: .constant(true), label: Text("Format"), content: {
+//                    Label("Compressed", systemImage: "").tag(true)
+//                    Label("RAW", systemImage: "").tag(false)
+//                })
+                Menu {
+                    Menu {
+                        Picker(selection: $numberOfLines, label: Text("Flash"), content: {
+                            Label("1 Line", systemImage: "square.split.2x2").tag(2)
+                            Label("2 Lines", image: "grid.3x3").tag(3)
+                        })
+                        
+                        Picker(selection: $model.gridFormat, label: Text("Grid Format"), content: {
+                            
+                            Label("Full", systemImage: "rectangle.portrait").tag(GridFormat.full)
+                            Label("Square", systemImage: "square").tag(GridFormat.square)
+                            
+                        })
+                    } label: {
+                        Text("Configure Grid...")
+                    }
+                    Menu {
+                        Picker(selection: .constant(true), label: Text("Format"), content: {
+                            Label("HEIC", systemImage: "").tag(true)
+                            Label("RAW", systemImage: "").tag(false)
+                            Label("ProRAW", systemImage: "").tag(false)
+                        })
+                    } label: {
+                        Text("Capture Format...")
+                    }
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }
                 
                 
             } label: {
-                VStack {
-                    switch model.selectedCamera {
-                    case .telephoto:
-                        if let device = UIDevice.modelName == "iPhone 12 Pro Max" {
-                            Text("65").font(.headline).fixedSize()
-                        } else {
-                            Text("52").font(.headline).fixedSize()
+                HStack {
+                    VStack {
+                        switch model.selectedCamera {
+                        case .telephoto:
+                            if let device = UIDevice.modelName == "iPhone 12 Pro Max" {
+                                Text("65").font(.headline).fixedSize()
+                            } else {
+                                Text("52").font(.headline).fixedSize()
+                            }
+                        case .wide:
+                            Text("26").font(.headline).fixedSize()
+                        case .ultrawide:
+                            Text("13").font(.headline).fixedSize()
+                        case .front:
+                            Text("FF").font(.headline).fixedSize()
                         }
-                    case .wide:
-                        Text("26").font(.headline).fixedSize()
-                    case .ultrawide:
-                        Text("13").font(.headline).fixedSize()
-                    case .front:
-                        Text("FF").font(.headline).fixedSize()
+                        if model.selectedCamera != .front {
+                            Text("mm").font(.caption).fixedSize()
+                        }
+                        
                     }
-                    if model.selectedCamera != .front {
-                        Text("mm").font(.caption).fixedSize()
+                    if model.isFlashOn {
+                        Image(systemName: "bolt.fill")
                     }
-                    
                 }
                 
                 .padding(28)

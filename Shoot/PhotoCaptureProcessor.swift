@@ -20,8 +20,10 @@ class PhotoCaptureProcessor: NSObject {
     
     private let photoProcessingHandler: (Bool) -> Void
     
+    private var rawFileURL: URL?
+    
 //    The actual captured photo's data
-    var photoData: Data?
+    var compressedPhotoData: Data?
     
 //    The maximum time lapse before telling UI to show a spinner
     private var maxPhotoProcessingTime: CMTime?
@@ -74,20 +76,58 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         if let error = error {
             print("Error capturing photo: \(error)")
         } else {
-            photoData = photo.fileDataRepresentation()
+            guard let photoData = photo.fileDataRepresentation() else {
+                        print("No photo data to write.")
+                        return
+                    }
+            
+            if photo.isRawPhoto {
+                // Generate a unique URL to write the RAW file.
+                rawFileURL = makeUniqueDNGFileURL()
+                do {
+                    // Write the RAW (DNG) file data to a URL.
+                    try photoData.write(to: rawFileURL!)
+                } catch {
+                    fatalError("Couldn't write DNG file to the URL.")
+                }
+            } else {
+                // Store compressed bitmap data.
+                compressedPhotoData = photoData
+            }
         }
+        
+        
     }
+    
+    private func makeUniqueDNGFileURL() -> URL {
+            let tempDir = FileManager.default.temporaryDirectory
+            let fileName = ProcessInfo.processInfo.globallyUniqueString
+            return tempDir.appendingPathComponent(fileName).appendingPathExtension("dng")
+        }
     
     //        MARK: Saves capture to photo library
     func saveToPhotoLibrary(_ photoData: Data) {
+        
+        guard let rawFileURL = rawFileURL,
+              let compressedData = compressedPhotoData else {
+                  print("The expected photo data isn't available.")
+                  return
+              }
+        
         
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized {
                 PHPhotoLibrary.shared().performChanges({
                     let options = PHAssetResourceCreationOptions()
                     let creationRequest = PHAssetCreationRequest.forAsset()
+                    creationRequest.addResource(with: .photo, data: compressedData, options: nil)
+                                
+                    options.shouldMoveFile = true
                     options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }
-                    creationRequest.addResource(with: .photo, data: photoData, options: options)
+                    creationRequest.addResource(with: .alternatePhoto, fileURL: rawFileURL, options: options)
+                    
+                    
+//                    creationRequest.addResource(with: .photo, data: photoData, options: options)
                     
                     
                 }, completionHandler: { _, error in
@@ -117,7 +157,10 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             }
             return
         } else {
-            guard let data  = photoData else {
+            
+            
+            
+            guard let data  = compressedPhotoData else {
                 DispatchQueue.main.async {
                     self.completionHandler(self)
                 }

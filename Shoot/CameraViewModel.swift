@@ -54,6 +54,22 @@ func availableDeviceTypes() -> [CameraType] {
     return availableDeviceTypes
 }
 
+//func availableCaptureFormates() -> [CaptureFormat] {
+//    var availableDeviceTypes = [CaptureFormat]()
+//    
+//    let query = photoOutput.isAppleProRAWEnabled ?
+//        { AVCapturePhotoOutput.isAppleProRAWPixelFormat($0) } :
+//        { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
+//
+//    // Retrieve the RAW format, favoring Apple ProRAW when enabled.
+//    guard let rawFormat =
+//            photoOutput.availableRawPhotoPixelFormatTypes.first(where: query) else {
+//        fatalError("No RAW format found.")
+//    }
+//
+//
+//}
+
 public enum CameraType: String, CaseIterable {
     case ultrawide, wide, telephoto, front
 }
@@ -82,7 +98,13 @@ final class CameraViewModel: ObservableObject {
         }
     }
     
-    @Published var gridLines = ((defaultsStored.value(forKey: "gridLines") ?? 0) as! Int) {
+    @Published var showGrid = ((defaultsStored.value(forKey: "showGrid") ?? false) as! Bool) {
+        didSet {
+            defaultsStored.set(showGrid, forKey: "showGrid")
+        }
+    }
+    
+    @Published var gridLines = ((defaultsStored.value(forKey: "gridLines") ?? 3) as! Int) {
         didSet {
             defaultsStored.set(gridLines, forKey: "gridLines")
         }

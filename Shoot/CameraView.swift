@@ -28,11 +28,13 @@ struct CameraView: View {
                         model.configure()
                     }
                     
+                    if model.showGrid {
                         if model.gridFormat == .square {
                         GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit)
                         } else {
                             GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit)
                         }
+                    }
                 }
                     
                 

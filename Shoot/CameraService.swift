@@ -161,6 +161,8 @@ public class CameraService: NSObject {
                 photoOutput.isHighResolutionCaptureEnabled = true
                 photoOutput.maxPhotoQualityPrioritization = .quality
                 
+                photoOutput.isAppleProRAWEnabled = photoOutput.isAppleProRAWSupported
+                
             } else {
                 print("Could not add photo output to the session")
                 setupResult = .configurationFailed
@@ -321,12 +323,24 @@ public class CameraService: NSObject {
                     if let photoOutputConnection = self.photoOutput.connection(with: .video) {
                         photoOutputConnection.videoOrientation = .portrait
                     }
-                    var photoSettings = AVCapturePhotoSettings()
+                    
+                    
+                    let query = self.photoOutput.isAppleProRAWEnabled ?
+                        { AVCapturePhotoOutput.isAppleProRAWPixelFormat($0) } :
+                        { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
+
+                    // Retrieve the RAW format, favoring Apple ProRAW when enabled.
+                    guard let rawFormat =
+                            self.photoOutput.availableRawPhotoPixelFormatTypes.first(where: query) else {
+                        fatalError("No RAW format found.")
+                    }
+
+                    // Capture a RAW format photo, along with a processed format photo.
+                    let processedFormat = [AVVideoCodecKey: AVVideoCodecType.hevc]
+                    let photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat,
+                                                               processedFormat: processedFormat)
                     
                     // Capture HEIF photos when supported. Enable according to user settings and high-resolution photos.
-                    if  self.photoOutput.availablePhotoCodecTypes.contains(.hevc) {
-                        photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
-                    }
                     // Sets the flash option for this capture.
                     if self.videoDeviceInput.device.isFlashAvailable {
                         photoSettings.flashMode = self.flashMode
@@ -343,6 +357,7 @@ public class CameraService: NSObject {
                     
                     
                     
+                    
                     let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
                         // Tells the UI to flash the screen to signal that SwiftCamera took a photo.
                         DispatchQueue.main.async {
@@ -355,7 +370,7 @@ public class CameraService: NSObject {
                         
                     }, completionHandler: { (photoCaptureProcessor) in
                         // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
-                        if let data = photoCaptureProcessor.photoData {
+                        if let data = photoCaptureProcessor.compressedPhotoData {
                             self.photo = Photo(originalData: data)
                             print("passing photo")
                         } else {
