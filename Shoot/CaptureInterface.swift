@@ -82,13 +82,7 @@ struct CaptureInterface: View {
                 
                 ZStack {
             Button {
-                UIApplication.shared.setAlternateIconName("3Lens") { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
+                model.capturePhoto()
             } label: {
                 Circle()
                     .foregroundColor(.white)
@@ -108,45 +102,70 @@ struct CaptureInterface: View {
                     ForEach(availableDeviceTypes(), id: \.self) { cameraType in
                         switch cameraType {
                         case .telephoto:
-                            Label("Telephoto", image: "2.5x.SFSymbol").tag(cameraType)
+                            Label {
+                                Text("Telephoto")
+                            } icon: {
+                                if UIDevice.modelName == "iPhone 12 Pro Max" {
+                                    Image("65.SFSymbol")
+                                } else {
+                                    Image("52.SFSymbol")
+                                }
+                            }.tag(cameraType)
                         case .front:
                             Label("Front", image: "FF.SFSymbol").tag(cameraType)
                         case .wide:
-                            Label("Wide", image: "1x.SFSymbol").tag(cameraType)
+                        Label {
+                            Text("Wide")
+                        } icon: {
+                            if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
+                                Image("28.SFSymbol")
+                            } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
+                                Image("26.SFSymbol")
+                            } else {
+                                Image("33.SFSymbol")
+                            }
+                        }
                         case .ultrawide:
-                            Label("Ultrawide", image: "0.5x.SFSymbol").tag(cameraType)
+                            Label("Ultrawide", image: "13.SFSymbol").tag(cameraType)
                         }
                         
                     }
                     
                 })
-                Picker(selection: $model.showGrid, label: Text("Grid"), content: {
+                
+                Button {
+                    model.showGrid.toggle()
+                } label: {
                     if !model.showGrid {
-                        Label("Toggle Grid", systemImage: "square").tag(true)
+                        Label("Toggle Grid", systemImage: "square")
                     } else {
-                        Label("Toggle Grid", systemImage: "square.split.2x2").tag(false)
+                        Label("Toggle Grid", systemImage: "square.split.2x2")
                     }
-                    
-                })
+                }
                 
                 
-                
-                Picker(selection: $model.isFlashOn, label: Text("Flash Setting"), content: {
-                    
+                Button {
+                    model.isFlashOn.toggle()
+                } label: {
                     if model.isFlashOn {
-                        Label("Toggle Flash", systemImage: "bolt").tag(false)
+                        Label("Toggle Flash", systemImage: "bolt")
                     } else {
-                        Label("Toggle Flash", systemImage: "bolt.slash").tag(true)
+                        Label("Toggle Flash", systemImage: "bolt.slash")
                     }
-                    
-                    
-                })
+                }
                 
 //                Picker(selection: .constant(true), label: Text("Format"), content: {
 //                    Label("Compressed", systemImage: "").tag(true)
 //                    Label("RAW", systemImage: "").tag(false)
 //                })
+                Divider()
                 Menu {
+                    Button {
+                        
+                    } label: {
+                        Label("About", systemImage: "info.circle")
+                    }
+                    Divider()
                     Menu {
                         Picker(selection: $numberOfLines, label: Text("Flash"), content: {
                             Label("1 Line", systemImage: "square.split.2x2").tag(2)
@@ -160,7 +179,7 @@ struct CaptureInterface: View {
                             
                         })
                     } label: {
-                        Text("Configure Grid...")
+                        Text("Grid...")
                     }
                     Menu {
                         Picker(selection: $model.captureFormat, label: Text("Format"), content: {
@@ -171,6 +190,7 @@ struct CaptureInterface: View {
                     } label: {
                         Text("Capture Format...")
                     }
+                    
                 } label: {
                     Label("Settings", systemImage: "gear")
                 }
@@ -188,7 +208,6 @@ struct CaptureInterface: View {
                 .rotationEffect(rotation)
                 .animation(.easeOut(duration: 0.2))
                 .onRotate { newRotation in
-                    print(newRotation.rawValue)
                     if newRotation == .landscapeLeft {
                         rotation = Angle(degrees: 90)
                     } else if newRotation == .landscapeRight {

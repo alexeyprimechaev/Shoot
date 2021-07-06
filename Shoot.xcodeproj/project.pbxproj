@@ -15,9 +15,16 @@
 		802BC70F2691FD93006EFB0B /* CheckForPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7082691FD93006EFB0B /* CheckForPermissions.swift */; };
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
-		803A509D26947EDB002D09C6 /* 3Lens.png in Resources */ = {isa = PBXBuildFile; fileRef = 803A509B26947D0F002D09C6 /* 3Lens.png */; };
 		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
 		80452860269223600019F97C /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 8045285F269223600019F97C /* VisualEffects */; };
+		80A5F7B82694A6A800547800 /* 3 Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B02694A6A800547800 /* 3 Lens@2x.png */; };
+		80A5F7B92694A6A800547800 /* 3 Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B12694A6A800547800 /* 3 Lens@3x.png */; };
+		80A5F7BA2694A6A800547800 /* X Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B22694A6A800547800 /* X Lens@3x.png */; };
+		80A5F7BB2694A6A800547800 /* XR Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B32694A6A800547800 /* XR Lens@3x.png */; };
+		80A5F7BC2694A6A800547800 /* SE Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B42694A6A800547800 /* SE Lens@3x.png */; };
+		80A5F7BD2694A6A800547800 /* X Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B52694A6A800547800 /* X Lens@2x.png */; };
+		80A5F7BE2694A6A800547800 /* SE Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B62694A6A800547800 /* SE Lens@2x.png */; };
+		80A5F7BF2694A6A800547800 /* XR Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80A5F7B72694A6A800547800 /* XR Lens@2x.png */; };
 		80FB2A882691F98000D6790A /* ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A872691F98000D6790A /* ShootApp.swift */; };
 		80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A892691F98000D6790A /* ContentView.swift */; };
 		80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80FB2A8B2691F98000D6790A /* Assets.xcassets */; };
@@ -33,8 +40,15 @@
 		802BC7082691FD93006EFB0B /* CheckForPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckForPermissions.swift; sourceTree = "<group>"; };
 		802BC7092691FD93006EFB0B /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		802BC70A2691FD93006EFB0B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		803A509B26947D0F002D09C6 /* 3Lens.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3Lens.png; sourceTree = "<group>"; };
 		8045285B26921A130019F97C /* CaptureInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureInterface.swift; sourceTree = "<group>"; };
+		80A5F7B02694A6A800547800 /* 3 Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@2x.png"; sourceTree = "<group>"; };
+		80A5F7B12694A6A800547800 /* 3 Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@3x.png"; sourceTree = "<group>"; };
+		80A5F7B22694A6A800547800 /* X Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@3x.png"; sourceTree = "<group>"; };
+		80A5F7B32694A6A800547800 /* XR Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@3x.png"; sourceTree = "<group>"; };
+		80A5F7B42694A6A800547800 /* SE Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@3x.png"; sourceTree = "<group>"; };
+		80A5F7B52694A6A800547800 /* X Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@2x.png"; sourceTree = "<group>"; };
+		80A5F7B62694A6A800547800 /* SE Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@2x.png"; sourceTree = "<group>"; };
+		80A5F7B72694A6A800547800 /* XR Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@2x.png"; sourceTree = "<group>"; };
 		80FB2A842691F98000D6790A /* Shoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80FB2A872691F98000D6790A /* ShootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootApp.swift; sourceTree = "<group>"; };
 		80FB2A892691F98000D6790A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,10 +69,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		80A5F7C02694A6B400547800 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				80A5F7B02694A6A800547800 /* 3 Lens@2x.png */,
+				80A5F7B12694A6A800547800 /* 3 Lens@3x.png */,
+				80A5F7B62694A6A800547800 /* SE Lens@2x.png */,
+				80A5F7B42694A6A800547800 /* SE Lens@3x.png */,
+				80A5F7B52694A6A800547800 /* X Lens@2x.png */,
+				80A5F7B22694A6A800547800 /* X Lens@3x.png */,
+				80A5F7B72694A6A800547800 /* XR Lens@2x.png */,
+				80A5F7B32694A6A800547800 /* XR Lens@3x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
 		80FB2A7B2691F97F00D6790A = {
 			isa = PBXGroup;
 			children = (
-				803A509B26947D0F002D09C6 /* 3Lens.png */,
+				80A5F7C02694A6B400547800 /* Icons */,
 				80FB2A862691F98000D6790A /* Shoot */,
 				80FB2A852691F98000D6790A /* Products */,
 			);
@@ -164,9 +193,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				80A5F7BD2694A6A800547800 /* X Lens@2x.png in Resources */,
+				80A5F7BE2694A6A800547800 /* SE Lens@2x.png in Resources */,
 				80FB2A8F2691F98000D6790A /* Preview Assets.xcassets in Resources */,
-				803A509D26947EDB002D09C6 /* 3Lens.png in Resources */,
 				80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */,
+				80A5F7BA2694A6A800547800 /* X Lens@3x.png in Resources */,
+				80A5F7BF2694A6A800547800 /* XR Lens@2x.png in Resources */,
+				80A5F7BB2694A6A800547800 /* XR Lens@3x.png in Resources */,
+				80A5F7B82694A6A800547800 /* 3 Lens@2x.png in Resources */,
+				80A5F7BC2694A6A800547800 /* SE Lens@3x.png in Resources */,
+				80A5F7B92694A6A800547800 /* 3 Lens@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +356,7 @@
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,7 +378,7 @@
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

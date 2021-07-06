@@ -26,6 +26,9 @@ struct CameraView: View {
                     .aspectRatio(3/4, contentMode: .fit)
                     .onAppear {
                         model.configure()
+                        if !model.hasChangedIcon {
+                            changeIcon()
+                        }
                     }
                     
                     if model.showGrid {
@@ -108,3 +111,28 @@ struct GridView: View {
 }
 
 
+
+func changeIcon() {
+    
+    var icon: String? = nil
+    
+    if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XS Max" {
+        icon = "X Lens"
+    } else if UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" {
+        icon = nil
+    } else if UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 11 Pro"{
+        icon = "3 Lens"
+    } else if UIDevice.modelName == "iPhone XR" {
+        icon = "XR Lens"
+    } else {
+        icon = "SE Lens"
+    }
+    
+    UIApplication.shared.setAlternateIconName(icon) { error in
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            print("Success!")
+        }
+    }
+}

@@ -98,6 +98,12 @@ final class CameraViewModel: ObservableObject {
         }
     }
     
+    @Published var hasChangedIcon = ((defaultsStored.value(forKey: "hasChangedIcon") ?? false) as! Bool) {
+        didSet {
+            defaultsStored.set(hasChangedIcon, forKey: "hasChangedIcon")
+        }
+    }
+    
     @Published var showGrid = ((defaultsStored.value(forKey: "showGrid") ?? false) as! Bool) {
         didSet {
             defaultsStored.set(showGrid, forKey: "showGrid")

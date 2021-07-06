@@ -10,20 +10,38 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>3Lens</key>
+			<key>3 Lens</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>3Lens</string>
+					<string>3 Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>AppIcon-3</key>
+			<key>X Lens</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>Icon-3</string>
+					<string>X Lens</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>XR Lens</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>XR Lens</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>SE Lens</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>SE Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
