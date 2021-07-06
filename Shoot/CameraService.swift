@@ -341,8 +341,7 @@ public class CameraService: NSObject {
                     
                     if self.captureFormat != .heic {
    
-                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat,
-                                                               processedFormat: processedFormat)
+                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat)
                     }
                     
                     // Capture HEIF photos when supported. Enable according to user settings and high-resolution photos.

@@ -108,44 +108,75 @@ extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
     //        MARK: Saves capture to photo library
     func saveToPhotoLibrary(_ photoData: Data) {
         
-        guard let rawFileURL = rawFileURL,
-              let compressedData = compressedPhotoData else {
-                  print("The expected photo data isn't available.")
-                  return
-              }
-        
-        
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                PHPhotoLibrary.shared().performChanges({
-                    let options = PHAssetResourceCreationOptions()
-                    let creationRequest = PHAssetCreationRequest.forAsset()
-                    creationRequest.addResource(with: .photo, data: compressedData, options: nil)
-                                
-                    options.shouldMoveFile = true
-                    options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }
-                    creationRequest.addResource(with: .alternatePhoto, fileURL: rawFileURL, options: options)
-                    
-                    
-//                    creationRequest.addResource(with: .photo, data: photoData, options: options)
-                    
-                    
-                }, completionHandler: { _, error in
-                    if let error = error {
-                        print("Error occurred while saving photo to photo library: \(error)")
+        if let rawFileURL = rawFileURL, let compressedData = compressedPhotoData {
+            print("raw")
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    PHPhotoLibrary.shared().performChanges({
+                        let options = PHAssetResourceCreationOptions()
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .alternatePhoto, fileURL: rawFileURL, options: options)
+                        
+                        
+    //                    creationRequest.addResource(with: .photo, data: photoData, options: options)
+                        
+                        
+                    }, completionHandler: { _, error in
+                        if let error = error {
+                            print("Error occurred while saving photo to photo library: \(error)")
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.completionHandler(self)
+                        }
                     }
-                    
+                    )
+                } else {
                     DispatchQueue.main.async {
                         self.completionHandler(self)
                     }
                 }
-                )
-            } else {
-                DispatchQueue.main.async {
-                    self.completionHandler(self)
+            }
+        } else if let compressedData = compressedPhotoData {
+            print("ne raw")
+            PHPhotoLibrary.requestAuthorization { status in
+                if status == .authorized {
+                    PHPhotoLibrary.shared().performChanges({
+                        let options = PHAssetResourceCreationOptions()
+                        let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .photo, data: compressedData, options: nil)
+                                    
+
+                        
+                        
+    //                    creationRequest.addResource(with: .photo, data: photoData, options: options)
+                        
+                        
+                    }, completionHandler: { _, error in
+                        if let error = error {
+                            print("Error occurred while saving photo to photo library: \(error)")
+                        }
+                        
+                        DispatchQueue.main.async {
+                            self.completionHandler(self)
+                        }
+                    }
+                    )
+                } else {
+                    DispatchQueue.main.async {
+                        self.completionHandler(self)
+                    }
                 }
             }
+        } else {
+            print("The expected photo data isn't available.")
+            return
         }
+        
+
+        
+        
+        
     }
     
     /// - Tag: DidFinishCapture

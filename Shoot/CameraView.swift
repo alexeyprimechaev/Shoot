@@ -48,7 +48,7 @@ struct CameraView: View {
                 Spacer()
                 Spacer()
                 Spacer()
-                CaptureInterface(model: model, numberOfLines: $model.gridLines)
+                CaptureInterface(model: model)
                 Spacer()
 
             }
