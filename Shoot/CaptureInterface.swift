@@ -26,7 +26,12 @@ struct CaptureInterface: View {
             
             
             CaptureButton {
-                model.capturePhoto()
+                print("start")
+                DispatchQueue.global().async {
+                    model.capturePhoto()
+                    print("real end")
+                }
+                print("end")
             }.position(x: geometry.size.width/2)
             
             
@@ -155,15 +160,24 @@ struct ImagePreview: View {
     
     @ObservedObject var model: CameraViewModel
     
+    @State var scaleEffect: CGFloat = 1
+    
     var body: some View {
         Group {
             if model.photo != nil {
-                Image(uiImage: model.photo.image!)
+                Image(uiImage: model.photo.thumbnailImage!)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 32, height: 32)
                     .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                    .animation(.spring())
+                    .scaleEffect(scaleEffect)
+                    .onChange(of: model.photo) { _ in
+                        withAnimation {
+                            scaleEffect -= 0.1
+                            
+                        }
+                    }
+                    .animation(.default)
                 
             } else {
                 RoundedRectangle(cornerRadius: 8)
@@ -315,7 +329,7 @@ struct ConfigurationMenu: View {
                     Picker(selection: $model.captureFormat, label: Text("Format"), content: {
                         Label("HEIC", systemImage: "").tag(CaptureFormat.heif)
                         Label("RAW", systemImage: "").tag(CaptureFormat.raw)
-                        if model.isProRAWSupported {
+                        if model.service.isProRawAvailable {
                             Label("ProRAW", systemImage: "").tag(CaptureFormat.proRAW)
                         }
                     })

@@ -115,10 +115,11 @@ extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
                     PHPhotoLibrary.shared().performChanges({
                         let options = PHAssetResourceCreationOptions()
                         let creationRequest = PHAssetCreationRequest.forAsset()
+                        creationRequest.addResource(with: .photo, data: compressedData, options: nil)
+                                    
+                        options.shouldMoveFile = true
+                        options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }
                         creationRequest.addResource(with: .alternatePhoto, fileURL: rawFileURL, options: options)
-                        
-                        
-    //                    creationRequest.addResource(with: .photo, data: photoData, options: options)
                         
                         
                     }, completionHandler: { _, error in

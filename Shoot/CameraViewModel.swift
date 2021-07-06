@@ -78,7 +78,7 @@ public let defaultsStored = UserDefaults.standard
 
 
 final class CameraViewModel: ObservableObject {
-    private let service = CameraService()
+    let service = CameraService()
     
     @Published var isProRAWSupported: Bool = {
         let rawFormatQuery = {AVCapturePhotoOutput.isBayerRAWPixelFormat($0)}
@@ -138,6 +138,8 @@ final class CameraViewModel: ObservableObject {
     
     @Published var isCameraButtonDisabled = false
     
+    @Published var willCapturePhoto = false
+    
     @Published var selectedCamera: CameraType = CameraType(rawValue: ((defaultsStored.value(forKey: "selectedCamera") ?? CameraType.wide.rawValue) as! String)) ?? .wide {
         didSet {
             if oldValue != selectedCamera {
@@ -179,6 +181,11 @@ final class CameraViewModel: ObservableObject {
         
         service.$isCameraButtonDisabled.sink { [weak self] (isCameraButtonDisabled) in
             self?.isCameraButtonDisabled = isCameraButtonDisabled
+        }
+        .store(in: &self.subscriptions)
+        
+        service.$willCapturePhoto.sink { [weak self] (willCapturePhoto) in
+            self?.willCapturePhoto = willCapturePhoto
         }
         .store(in: &self.subscriptions)
         

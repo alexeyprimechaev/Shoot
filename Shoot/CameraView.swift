@@ -22,6 +22,7 @@ struct CameraView: View {
                 Spacer()
                 Spacer()
                 ZStack {
+                    
                 CameraPreview(session: model.session)
                     .aspectRatio(3/4, contentMode: .fit)
                     .onAppear {

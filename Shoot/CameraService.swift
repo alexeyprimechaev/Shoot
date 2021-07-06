@@ -26,6 +26,7 @@ public class CameraService: NSObject {
     @Published public var isCameraButtonDisabled = true
     @Published public var isCameraUnavailable = true
     @Published public var photo: Photo?
+    @Published public var isProRawAvailable = false
     
     public var alertError: AlertError = AlertError()
     
@@ -162,9 +163,8 @@ public class CameraService: NSObject {
                 photoOutput.isHighResolutionCaptureEnabled = true
                 photoOutput.maxPhotoQualityPrioritization = .quality
                 
-                print("isSupportedHere?")
-                print(photoOutput.isAppleProRAWSupported)
                 
+                isProRawAvailable = photoOutput.isAppleProRAWSupported
                 photoOutput.isAppleProRAWEnabled = photoOutput.isAppleProRAWSupported
                 
             } else {
@@ -344,7 +344,7 @@ public class CameraService: NSObject {
                     
                     if self.captureFormat != .heif {
    
-                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat)
+                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat, processedFormat: processedFormat)
                     }
                     
                     // Capture HEIF photos when supported. Enable according to user settings and high-resolution photos.
@@ -362,6 +362,20 @@ public class CameraService: NSObject {
                     if self.captureFormat != .raw {
                         photoSettings.photoQualityPrioritization = .quality
                     }
+                    
+                    if photoSettings.availablePreviewPhotoPixelFormatTypes.count > 0 {
+                        photoSettings.previewPhotoFormat = [
+                            kCVPixelBufferPixelFormatTypeKey : photoSettings.availablePreviewPhotoPixelFormatTypes.first!,
+                            kCVPixelBufferWidthKey : 512,
+                            kCVPixelBufferHeightKey : 512
+                        ] as [String: Any]
+                    }
+                    
+                    photoSettings.embeddedThumbnailPhotoFormat = [
+                        AVVideoCodecKey: AVVideoCodecType.hevc,
+                        AVVideoWidthKey: 96,
+                        AVVideoHeightKey: 96,
+                    ]
                     
                     
                     

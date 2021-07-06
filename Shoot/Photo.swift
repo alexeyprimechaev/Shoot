@@ -25,7 +25,7 @@ extension Photo {
         ImageResizer(targetWidth: 800).resize(data: originalData)?.jpegData(compressionQuality: 0.5)
     }
     public var thumbnailData: Data? {
-        ImageResizer(targetWidth: 100).resize(data: originalData)?.jpegData(compressionQuality: 0.5)
+        ImageResizer(targetWidth: 32).resize(data: originalData)?.jpegData(compressionQuality: 0.5)
     }
     public var thumbnailImage: UIImage? {
         guard let data = thumbnailData else { return nil }
