@@ -95,7 +95,7 @@ final class CameraViewModel: ObservableObject {
     
     @Published var showAlertError = false
     
-    @Published var captureFormat: CaptureFormat = CaptureFormat(rawValue: ((defaultsStored.value(forKey: "captureFormat") ?? CaptureFormat.heif.rawValue) as! String)) ?? .heif {
+    @Published var captureFormat: CaptureFormat = CaptureFormat(rawValue: ((defaultsStored.value(forKey: "captureFormat") ?? CaptureFormat.raw.rawValue) as! String)) ?? .raw {
         didSet {
             if oldValue != captureFormat {
                 defaultsStored.set(captureFormat.rawValue, forKey: "captureFormat")
@@ -218,9 +218,6 @@ final class CameraViewModel: ObservableObject {
         service.changeCamera()
     }
     
-    func zoom(with factor: CGFloat) {
-        service.set(zoom: factor)
-    }
     
 
 }

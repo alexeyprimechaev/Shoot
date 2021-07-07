@@ -32,7 +32,8 @@ struct CaptureInterface: View {
                     print("real end")
                 }
                 print("end")
-            }.position(x: geometry.size.width/2)
+            }
+            .position(x: geometry.size.width/2)
             
             
             ConfigurationMenu(model: model)
@@ -302,6 +303,7 @@ struct ConfigurationMenu: View {
                     Link(destination: URL(string: "https://twitter.com/FetchRequested")!) {
                         Label("Alexey Primechaev", image: "alesha")
                     }
+                    Divider()
                     Text("Made in Moscow with ❤️")
                     Divider()
                     
@@ -327,7 +329,7 @@ struct ConfigurationMenu: View {
                 }
                 Menu {
                     Picker(selection: $model.captureFormat, label: Text("Format"), content: {
-                        Label("HEIC", systemImage: "").tag(CaptureFormat.heif)
+                        Label("HEIF", systemImage: "").tag(CaptureFormat.heif)
                         Label("RAW", systemImage: "").tag(CaptureFormat.raw)
                         if model.service.isProRawAvailable {
                             Label("ProRAW", systemImage: "").tag(CaptureFormat.proRAW)

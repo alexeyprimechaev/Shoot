@@ -82,7 +82,8 @@ struct GridView: View {
                                     path.addLine(to: CGPoint(x: vOffset, y: geometry.size.height))
                                 }
                             } else {
-                                let vOffset: CGFloat = CGFloat(index) * geometry.size.width/CGFloat(numberOfLines)
+                                let delta = (0.5 * (index == numberOfLines ? 1 : 0))
+                                let vOffset: CGFloat = (0.5 * (index == 0 ? 1 : 0)) + CGFloat(index) * geometry.size.width/CGFloat(numberOfLines) - CGFloat(delta)
                                 path.move(to: CGPoint(x: vOffset, y: 0))
                                 path.addLine(to: CGPoint(x: vOffset, y: geometry.size.height))
                             }
@@ -97,7 +98,8 @@ struct GridView: View {
                                     path.addLine(to: CGPoint(x: geometry.size.width, y: hOffset))
                                 }
                             } else {
-                                let hOffset: CGFloat = CGFloat(index) * geometry.size.height/CGFloat(numberOfLines)
+                                let delta = (0.5 * (index == numberOfLines ? 1 : 0))
+                                let hOffset: CGFloat = (0.5 * (index == 0 ? 1 : 0)) + CGFloat(index) * geometry.size.height/CGFloat(numberOfLines) - CGFloat(delta)
                                 path.move(to: CGPoint(x: 0, y: hOffset))
                                 path.addLine(to: CGPoint(x: geometry.size.width, y: hOffset))
                             }
@@ -126,7 +128,7 @@ func changeIcon() {
     } else if UIDevice.modelName == "iPhone XR" {
         icon = "XR Lens"
     } else {
-        icon = "SE Lens"
+        icon = "2 Lens"
     }
     
     UIApplication.shared.setAlternateIconName(icon) { error in

@@ -165,7 +165,11 @@ public class CameraService: NSObject {
                 
                 
                 isProRawAvailable = photoOutput.isAppleProRAWSupported
-                photoOutput.isAppleProRAWEnabled = photoOutput.isAppleProRAWSupported
+                
+                if captureFormat == .proRAW && photoOutput.isAppleProRAWSupported {
+                    photoOutput.isAppleProRAWEnabled = true
+                }
+                
                 
             } else {
                 print("Could not add photo output to the session")
@@ -302,20 +306,6 @@ public class CameraService: NSObject {
     //                MARK: Here enable capture button due to successfull setup
                     self.isCameraButtonDisabled = false
                 }
-            }
-        }
-    
-    public func set(zoom: CGFloat){
-            let factor = zoom < 1 ? 1 : zoom
-            let device = self.videoDeviceInput.device
-            
-            do {
-                try device.lockForConfiguration()
-                device.videoZoomFactor = factor
-                device.unlockForConfiguration()
-            }
-            catch {
-                print(error.localizedDescription)
             }
         }
     
