@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Shoot</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -15,6 +17,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>3 Lens</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>SE Lens</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>SE Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -33,15 +44,6 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>XR Lens</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-			<key>SE Lens</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>SE Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
