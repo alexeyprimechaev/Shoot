@@ -110,7 +110,7 @@ extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
         
         if let rawFileURL = rawFileURL, let compressedData = compressedPhotoData {
             print("raw")
-            PHPhotoLibrary.requestAuthorization { status in
+            PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
                 if status == .authorized {
                     PHPhotoLibrary.shared().performChanges({
                         let options = PHAssetResourceCreationOptions()
@@ -140,7 +140,7 @@ extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             }
         } else if let compressedData = compressedPhotoData {
             print("ne raw")
-            PHPhotoLibrary.requestAuthorization { status in
+            PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
                 if status == .authorized {
                     PHPhotoLibrary.shared().performChanges({
                         let options = PHAssetResourceCreationOptions()

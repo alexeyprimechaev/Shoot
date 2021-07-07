@@ -161,31 +161,32 @@ struct ImagePreview: View {
     
     @ObservedObject var model: CameraViewModel
     
-    @State var scaleEffect: CGFloat = 1
+    @State var showingAlert = false
     
     var body: some View {
-        Group {
-            if model.photo != nil {
-                Image(uiImage: model.photo.thumbnailImage!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 32, height: 32)
-                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                    .scaleEffect(scaleEffect)
-                    .onChange(of: model.photo) { _ in
-                        withAnimation {
-                            scaleEffect -= 0.1
-                            
-                        }
-                    }
-                    .animation(.default)
-                
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .frame(width: 52, height: 52, alignment: .center)
-                    .foregroundColor(.black)
-            }
-        }.padding(28)
+        Button {
+            showingAlert = true
+        } label: {
+            Group {
+                if model.photo != nil {
+                    Image(uiImage: model.photo.thumbnailImage!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 36, height: 36)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                        .animation(.default)
+                    
+                } else {
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(width: 52, height: 52, alignment: .center)
+                        .foregroundColor(.black)
+                }
+            }.padding(28)
+        }
+        .disabled(model.photo == nil)
+        .alert(isPresented: $showingAlert) {
+            Alert(title: Text("View your pictures in the Photos App"), message: Text("I haven't found a way to open Photos from inside another app, so..."), dismissButton:  .cancel(Text("Okay")))
+        }
     }
 }
 

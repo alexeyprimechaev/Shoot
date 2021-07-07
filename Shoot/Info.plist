@@ -87,9 +87,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Access camera</string>
+	<string>Camera access is required to take photos with the app</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Library</string>
+	<string>Photo Library access is required to save photos</string>
 	<key>Privacy - Camera Usage Description</key>
 	<string>APPNAME requires access to your phone’s camera.</string>
 	<key>UIApplicationSceneManifest</key>
