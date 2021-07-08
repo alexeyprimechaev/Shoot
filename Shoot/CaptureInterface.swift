@@ -26,6 +26,8 @@ struct CaptureInterface: View {
             
             
             CaptureButton {
+                model.isCameraButtonDisabled = true
+                
                 model.capturePhoto()
             }
             .position(x: geometry.size.width/2)
@@ -66,7 +68,7 @@ struct TitleButtonStyle: ButtonStyle {
                 if newValue == true {
                     regularHaptic()
                 } else {
-                    regularHaptic()
+                    
                 }
                 
             }

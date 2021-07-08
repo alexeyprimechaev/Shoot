@@ -46,9 +46,9 @@ struct CameraView: View {
                     
                     if model.showGrid {
                         if model.gridFormat == .square {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit)
+                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit).opacity(model.isCameraButtonDisabled ? 1 : 0.5)
                         } else {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit)
+                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit).opacity(model.isCameraButtonDisabled ? 1 : 0.5)
                         }
                     }
                 }
@@ -120,7 +120,7 @@ struct GridView: View {
                     .stroke()
                 }
        
-        .foregroundColor(.white).opacity(0.5)
+        .foregroundColor(.white)
     }
     
 }

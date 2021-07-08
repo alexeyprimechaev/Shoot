@@ -200,6 +200,7 @@ extension RawPhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
             }
             
             self.saveToPhotoLibrary(data)
+            regularHaptic()
         }
     }
 }
