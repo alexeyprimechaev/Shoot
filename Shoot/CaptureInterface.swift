@@ -16,7 +16,7 @@ struct CaptureInterface: View {
     @State var isExperimental = false
     
     @State var rotation = Angle(degrees: 0)
-        
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -26,12 +26,7 @@ struct CaptureInterface: View {
             
             
             CaptureButton {
-                print("start")
-                DispatchQueue.global().async {
-                    model.capturePhoto()
-                    print("real end")
-                }
-                print("end")
+                model.capturePhoto()
             }
             .position(x: geometry.size.width/2)
             
@@ -48,7 +43,7 @@ struct CaptureInterface: View {
                         rotation = Angle(degrees: 0)
                     }
                 }
-                
+            
                 .position(x: geometry.size.width - (geometry.size.width - (geometry.size.width + 73)/2)/2)
                 .frame(height: 73)
             
@@ -131,12 +126,23 @@ struct CameraIcon: View {
         VStack {
             switch selectedCamera {
             case .telephoto:
-
+                
+                if UIDevice.modelName == "iPhone 12 Pro Max" {
+                    Text("65").font(.headline).fixedSize()
+                } else {
                     Text("52").font(.headline).fixedSize()
+                }
+               
                 
             case .wide:
                 
+                if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
+                    Text("28").font(.headline).fixedSize()
+                } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
                     Text("26").font(.headline).fixedSize()
+                } else {
+                    Text("33").font(.headline).fixedSize()
+                }
 
             case .ultrawide:
                 Text("13").font(.headline).fixedSize()
@@ -239,8 +245,8 @@ struct ConfigurationMenu: View {
                             } else {
                                 Image("33.SFSymbol")
                             }
-//                            Image("26.SFSymbol")
-
+                            //                            Image("26.SFSymbol")
+                            
                         }
                     case .ultrawide:
                         Label("Ultrawide", image: "13.SFSymbol").tag(cameraType)
@@ -282,7 +288,7 @@ struct ConfigurationMenu: View {
                     Text("1.0 “Uno”")
                     
                     Divider()
-                   
+                    
                     Link(destination: URL(string: "mailto:monochromestudios@icloud.com")!) {
                         Label("Contact Us", systemImage: "envelope")
                     }

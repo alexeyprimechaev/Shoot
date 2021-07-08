@@ -14,7 +14,6 @@
 		802BC70C2691FD93006EFB0B /* RawPhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7052691FD93006EFB0B /* RawPhotoCaptureProcessor.swift */; };
 		802BC70D2691FD93006EFB0B /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7062691FD93006EFB0B /* CameraPreview.swift */; };
 		802BC70E2691FD93006EFB0B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7072691FD93006EFB0B /* CameraView.swift */; };
-		802BC70F2691FD93006EFB0B /* CheckForPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7082691FD93006EFB0B /* CheckForPermissions.swift */; };
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
 		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
@@ -39,7 +38,6 @@
 		802BC7052691FD93006EFB0B /* RawPhotoCaptureProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawPhotoCaptureProcessor.swift; sourceTree = "<group>"; };
 		802BC7062691FD93006EFB0B /* CameraPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		802BC7072691FD93006EFB0B /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
-		802BC7082691FD93006EFB0B /* CheckForPermissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckForPermissions.swift; sourceTree = "<group>"; };
 		802BC7092691FD93006EFB0B /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		802BC70A2691FD93006EFB0B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		8045285B26921A130019F97C /* CaptureInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureInterface.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 				8045285B26921A130019F97C /* CaptureInterface.swift */,
 				801C32912693BADE00D2A7E0 /* DeviceGetter.swift */,
 				802BC7092691FD93006EFB0B /* CameraViewModel.swift */,
-				802BC7082691FD93006EFB0B /* CheckForPermissions.swift */,
 				802BC70A2691FD93006EFB0B /* Photo.swift */,
 				802BC7052691FD93006EFB0B /* RawPhotoCaptureProcessor.swift */,
 				80FB2A892691F98000D6790A /* ContentView.swift */,
@@ -214,7 +211,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				802BC70D2691FD93006EFB0B /* CameraPreview.swift in Sources */,
-				802BC70F2691FD93006EFB0B /* CheckForPermissions.swift in Sources */,
 				802BC70C2691FD93006EFB0B /* RawPhotoCaptureProcessor.swift in Sources */,
 				802BC7112691FD93006EFB0B /* Photo.swift in Sources */,
 				80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */,
