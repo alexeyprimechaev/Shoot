@@ -13,6 +13,8 @@ import AVFoundation
 
 struct CameraView: View {
     @StateObject var model = CameraViewModel()
+    
+    @State var selectedImage = 1
         
     var body: some View {
         
@@ -24,7 +26,17 @@ struct CameraView: View {
                 ZStack {
                     
                 CameraPreview(session: model.session)
-                    .aspectRatio(3/4, contentMode: .fit)
+//                    Image("IMG"+String(selectedImage))
+//                        .resizable()
+//                        .scaledToFill()
+                        .aspectRatio(3/4, contentMode: .fit)
+//                        .onTapGesture {
+//                            if selectedImage < 20 {
+//                                selectedImage += 1
+//                            } else {
+//                                selectedImage = 1
+//                            }
+//                        }
                     .onAppear {
                         model.configure()
                         if !model.hasChangedIcon {
@@ -34,7 +46,7 @@ struct CameraView: View {
                     
                     if model.showGrid {
                         if model.gridFormat == .square {
-                        GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit)
+                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit)
                         } else {
                             GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit)
                         }
