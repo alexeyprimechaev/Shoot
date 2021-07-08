@@ -25,11 +25,7 @@ struct CaptureInterface: View {
             
             
             
-            CaptureButton {
-                model.isCameraButtonDisabled = true
-                
-                model.capturePhoto()
-            }
+            CaptureButton(model: model)
             .position(x: geometry.size.width/2)
             
             
@@ -194,23 +190,34 @@ struct ImagePreview: View {
 
 struct CaptureButton: View {
     
-    var action: () -> ()
+    @ObservedObject var model: CameraViewModel
+    
     var body: some View {
         ZStack {
             Button {
-                action()
+                model.willCapturePhoto = true
+                model.capturePhoto()
             } label: {
                 Circle()
                     .foregroundColor(.white)
                     .frame(width: 65, height: 65, alignment: .center)
+                    .opacity(model.isCameraButtonDisabled ? 0.0 : 1)
+                    
                 
                 
             }
             .buttonStyle(TitleButtonStyle())
+            
             Circle()
                 .stroke(Color.white, lineWidth: 4)
                 .frame(width: 73, height: 73, alignment: .center)
-        }
+            
+        }.overlay(
+            model.isCameraButtonDisabled ?
+                Circle().fill(
+                    AngularGradient(gradient: Gradient(colors: [.white, .white.opacity(0.5)]), center: .center)).frame(width: 65, height: 65, alignment: .center).rotationEffect(Angle(degrees: model.isCameraButtonDisabled ? 360 : 0)).animation(.default.repeatForever()) : nil
+            
+        )
     }
 }
 

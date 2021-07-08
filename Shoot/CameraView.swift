@@ -46,9 +46,9 @@ struct CameraView: View {
                     
                     if model.showGrid {
                         if model.gridFormat == .square {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit).opacity(model.isCameraButtonDisabled ? 1 : 0.5)
+                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5)
                         } else {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit).opacity(model.isCameraButtonDisabled ? 1 : 0.5)
+                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5)
                         }
                     }
                 }
@@ -67,7 +67,9 @@ struct CameraView: View {
             }
 
 
-        }.background(Color.black.edgesIgnoringSafeArea(.all))
+        }
+        .background(Color.black.edgesIgnoringSafeArea(.all))
+        
         
     }
 }
