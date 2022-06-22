@@ -147,7 +147,7 @@ struct CameraIcon: View {
             case .ultrawide:
                 Text("13").font(.headline).fixedSize()
             case .front:
-                Text("FF").font(.headline).fixedSize()
+                Text("F").font(.headline).fixedSize()
             }
             if selectedCamera != .front {
                 Text("mm").font(.caption).fixedSize()
@@ -185,7 +185,7 @@ struct ImagePreview: View {
         }
         .disabled(model.photo == nil)
         .alert(isPresented: $showingAlert) {
-            Alert(title: Text("View your pictures in the Photos App"), message: Text("I haven't found a way to open Photos from inside another app, so..."), dismissButton:  .cancel(Text("Okay")))
+            Alert(title: Text("View your pictures in the Photos App"), message: Text("I haven't found a way to open Photos from inside another app, so..."), dismissButton:  .cancel(Text("Damn")))
         }
     }
 }

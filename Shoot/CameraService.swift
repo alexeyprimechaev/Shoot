@@ -322,20 +322,25 @@ public class CameraService: NSObject {
                 let proRAWQuery = { AVCapturePhotoOutput.isAppleProRAWPixelFormat($0) }
                 let rawQuery = { AVCapturePhotoOutput.isBayerRAWPixelFormat($0) }
                 
-                // Retrieve the RAW format, favoring Apple ProRAW when enabled.
-                guard let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRAW ? proRAWQuery : rawQuery) else {
-                    fatalError("No RAW format found.")
-                }
                 
                 // Capture a RAW format photo, along with a processed format photo.
                 let processedFormat = [AVVideoCodecKey: AVVideoCodecType.hevc]
                 
                 var photoSettings = AVCapturePhotoSettings(format: processedFormat)
                 
-                if self.captureFormat != .heif {
+                // Retrieve the RAW format, favoring Apple ProRAW when enabled.
+                if let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRAW ? proRAWQuery : rawQuery) {
                     
-                    photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat, processedFormat: processedFormat)
+                    if self.captureFormat != .heif {
+                        
+                        photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat, processedFormat: processedFormat)
+                    }
+                    
                 }
+                
+               
+                
+                
                 
                 // Capture HEIF photos when supported. Enable according to user settings and high-resolution photos.
                 // Sets the flash option for this capture.
