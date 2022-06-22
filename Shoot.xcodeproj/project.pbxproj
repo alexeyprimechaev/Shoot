@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		801C32922693BADE00D2A7E0 /* DeviceGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801C32912693BADE00D2A7E0 /* DeviceGetter.swift */; };
-		802423E52696435F00BD3305 /* 3 Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802423E32696435F00BD3305 /* 3 Lens@2x.png */; };
-		802423E62696435F00BD3305 /* 3 Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 802423E42696435F00BD3305 /* 3 Lens@3x.png */; };
 		802BC70B2691FD93006EFB0B /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7042691FD93006EFB0B /* CameraService.swift */; };
 		802BC70C2691FD93006EFB0B /* RawPhotoCaptureProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7052691FD93006EFB0B /* RawPhotoCaptureProcessor.swift */; };
 		802BC70D2691FD93006EFB0B /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7062691FD93006EFB0B /* CameraPreview.swift */; };
@@ -17,23 +15,26 @@
 		802BC7102691FD93006EFB0B /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC7092691FD93006EFB0B /* CameraViewModel.swift */; };
 		802BC7112691FD93006EFB0B /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 802BC70A2691FD93006EFB0B /* Photo.swift */; };
 		8045285C26921A130019F97C /* CaptureInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8045285B26921A130019F97C /* CaptureInterface.swift */; };
-		80452860269223600019F97C /* VisualEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 8045285F269223600019F97C /* VisualEffects */; };
+		80AA45782863372B001BEFC2 /* X Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA456E2863372A001BEFC2 /* X Lens@2x.png */; };
+		80AA45792863372B001BEFC2 /* 3 Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA456F2863372A001BEFC2 /* 3 Lens@3x.png */; };
+		80AA457A2863372B001BEFC2 /* X Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45702863372A001BEFC2 /* X Lens@3x.png */; };
+		80AA457C2863372B001BEFC2 /* 2 Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45722863372B001BEFC2 /* 2 Lens@3x.png */; };
+		80AA457D2863372B001BEFC2 /* SE Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45732863372B001BEFC2 /* SE Lens@3x.png */; };
+		80AA457E2863372B001BEFC2 /* 2 Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45742863372B001BEFC2 /* 2 Lens@2x.png */; };
+		80AA457F2863372B001BEFC2 /* 3 Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45752863372B001BEFC2 /* 3 Lens@2x.png */; };
+		80AA45812863372B001BEFC2 /* SE Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45772863372B001BEFC2 /* SE Lens@2x.png */; };
+		80AA45842863374B001BEFC2 /* XR Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45822863374B001BEFC2 /* XR Lens@3x.png */; };
+		80AA45852863374B001BEFC2 /* XR Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA45832863374B001BEFC2 /* XR Lens@2x.png */; };
+		80AA458828633839001BEFC2 /* 13 Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA458628633839001BEFC2 /* 13 Lens@2x.png */; };
+		80AA458928633839001BEFC2 /* 13 Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80AA458728633839001BEFC2 /* 13 Lens@3x.png */; };
 		80FB2A882691F98000D6790A /* ShootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A872691F98000D6790A /* ShootApp.swift */; };
 		80FB2A8A2691F98000D6790A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FB2A892691F98000D6790A /* ContentView.swift */; };
 		80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80FB2A8B2691F98000D6790A /* Assets.xcassets */; };
 		80FB2A8F2691F98000D6790A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80FB2A8E2691F98000D6790A /* Preview Assets.xcassets */; };
-		80FB5A7126962B3C001B4300 /* XR Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A6926962B3C001B4300 /* XR Lens@2x.png */; };
-		80FB5A7226962B3C001B4300 /* SE Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A6A26962B3C001B4300 /* SE Lens@2x.png */; };
-		80FB5A7526962B3C001B4300 /* XR Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A6D26962B3C001B4300 /* XR Lens@3x.png */; };
-		80FB5A7626962B3C001B4300 /* SE Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A6E26962B3C001B4300 /* SE Lens@3x.png */; };
-		80FB5A7726962B3C001B4300 /* X Lens@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A6F26962B3C001B4300 /* X Lens@3x.png */; };
-		80FB5A7826962B3C001B4300 /* X Lens@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 80FB5A7026962B3C001B4300 /* X Lens@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		801C32912693BADE00D2A7E0 /* DeviceGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceGetter.swift; sourceTree = "<group>"; };
-		802423E32696435F00BD3305 /* 3 Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@2x.png"; sourceTree = "<group>"; };
-		802423E42696435F00BD3305 /* 3 Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@3x.png"; sourceTree = "<group>"; };
 		802BC7042691FD93006EFB0B /* CameraService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		802BC7052691FD93006EFB0B /* RawPhotoCaptureProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RawPhotoCaptureProcessor.swift; sourceTree = "<group>"; };
 		802BC7062691FD93006EFB0B /* CameraPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
@@ -41,18 +42,24 @@
 		802BC7092691FD93006EFB0B /* CameraViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		802BC70A2691FD93006EFB0B /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		8045285B26921A130019F97C /* CaptureInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureInterface.swift; sourceTree = "<group>"; };
+		80AA456E2863372A001BEFC2 /* X Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@2x.png"; sourceTree = "<group>"; };
+		80AA456F2863372A001BEFC2 /* 3 Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@3x.png"; sourceTree = "<group>"; };
+		80AA45702863372A001BEFC2 /* X Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@3x.png"; sourceTree = "<group>"; };
+		80AA45722863372B001BEFC2 /* 2 Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2 Lens@3x.png"; sourceTree = "<group>"; };
+		80AA45732863372B001BEFC2 /* SE Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@3x.png"; sourceTree = "<group>"; };
+		80AA45742863372B001BEFC2 /* 2 Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2 Lens@2x.png"; sourceTree = "<group>"; };
+		80AA45752863372B001BEFC2 /* 3 Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3 Lens@2x.png"; sourceTree = "<group>"; };
+		80AA45772863372B001BEFC2 /* SE Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@2x.png"; sourceTree = "<group>"; };
+		80AA45822863374B001BEFC2 /* XR Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@3x.png"; sourceTree = "<group>"; };
+		80AA45832863374B001BEFC2 /* XR Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@2x.png"; sourceTree = "<group>"; };
+		80AA458628633839001BEFC2 /* 13 Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "13 Lens@2x.png"; sourceTree = "<group>"; };
+		80AA458728633839001BEFC2 /* 13 Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "13 Lens@3x.png"; sourceTree = "<group>"; };
 		80FB2A842691F98000D6790A /* Shoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		80FB2A872691F98000D6790A /* ShootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootApp.swift; sourceTree = "<group>"; };
 		80FB2A892691F98000D6790A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		80FB2A8B2691F98000D6790A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80FB2A8E2691F98000D6790A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		80FB2A902691F98000D6790A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		80FB5A6926962B3C001B4300 /* XR Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@2x.png"; sourceTree = "<group>"; };
-		80FB5A6A26962B3C001B4300 /* SE Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@2x.png"; sourceTree = "<group>"; };
-		80FB5A6D26962B3C001B4300 /* XR Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "XR Lens@3x.png"; sourceTree = "<group>"; };
-		80FB5A6E26962B3C001B4300 /* SE Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SE Lens@3x.png"; sourceTree = "<group>"; };
-		80FB5A6F26962B3C001B4300 /* X Lens@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@3x.png"; sourceTree = "<group>"; };
-		80FB5A7026962B3C001B4300 /* X Lens@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "X Lens@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80452860269223600019F97C /* VisualEffects in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,14 +76,6 @@
 		80A5F7C02694A6B400547800 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				802423E32696435F00BD3305 /* 3 Lens@2x.png */,
-				802423E42696435F00BD3305 /* 3 Lens@3x.png */,
-				80FB5A6A26962B3C001B4300 /* SE Lens@2x.png */,
-				80FB5A6E26962B3C001B4300 /* SE Lens@3x.png */,
-				80FB5A7026962B3C001B4300 /* X Lens@2x.png */,
-				80FB5A6F26962B3C001B4300 /* X Lens@3x.png */,
-				80FB5A6926962B3C001B4300 /* XR Lens@2x.png */,
-				80FB5A6D26962B3C001B4300 /* XR Lens@3x.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -85,6 +83,18 @@
 		80FB2A7B2691F97F00D6790A = {
 			isa = PBXGroup;
 			children = (
+				80AA45742863372B001BEFC2 /* 2 Lens@2x.png */,
+				80AA45722863372B001BEFC2 /* 2 Lens@3x.png */,
+				80AA45752863372B001BEFC2 /* 3 Lens@2x.png */,
+				80AA456F2863372A001BEFC2 /* 3 Lens@3x.png */,
+				80AA45772863372B001BEFC2 /* SE Lens@2x.png */,
+				80AA45732863372B001BEFC2 /* SE Lens@3x.png */,
+				80AA456E2863372A001BEFC2 /* X Lens@2x.png */,
+				80AA45702863372A001BEFC2 /* X Lens@3x.png */,
+				80AA45832863374B001BEFC2 /* XR Lens@2x.png */,
+				80AA45822863374B001BEFC2 /* XR Lens@3x.png */,
+				80AA458628633839001BEFC2 /* 13 Lens@2x.png */,
+				80AA458728633839001BEFC2 /* 13 Lens@3x.png */,
 				80A5F7C02694A6B400547800 /* Icons */,
 				80FB2A862691F98000D6790A /* Shoot */,
 				80FB2A852691F98000D6790A /* Products */,
@@ -144,7 +154,6 @@
 			);
 			name = Shoot;
 			packageProductDependencies = (
-				8045285F269223600019F97C /* VisualEffects */,
 			);
 			productName = Shoot;
 			productReference = 80FB2A842691F98000D6790A /* Shoot.app */;
@@ -174,7 +183,6 @@
 			);
 			mainGroup = 80FB2A7B2691F97F00D6790A;
 			packageReferences = (
-				8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */,
 			);
 			productRefGroup = 80FB2A852691F98000D6790A /* Products */;
 			projectDirPath = "";
@@ -190,16 +198,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				80FB5A7726962B3C001B4300 /* X Lens@3x.png in Resources */,
+				80AA45792863372B001BEFC2 /* 3 Lens@3x.png in Resources */,
+				80AA45842863374B001BEFC2 /* XR Lens@3x.png in Resources */,
+				80AA45782863372B001BEFC2 /* X Lens@2x.png in Resources */,
 				80FB2A8F2691F98000D6790A /* Preview Assets.xcassets in Resources */,
-				80FB5A7226962B3C001B4300 /* SE Lens@2x.png in Resources */,
+				80AA45812863372B001BEFC2 /* SE Lens@2x.png in Resources */,
+				80AA457A2863372B001BEFC2 /* X Lens@3x.png in Resources */,
+				80AA458928633839001BEFC2 /* 13 Lens@3x.png in Resources */,
+				80AA458828633839001BEFC2 /* 13 Lens@2x.png in Resources */,
+				80AA457E2863372B001BEFC2 /* 2 Lens@2x.png in Resources */,
 				80FB2A8C2691F98000D6790A /* Assets.xcassets in Resources */,
-				802423E62696435F00BD3305 /* 3 Lens@3x.png in Resources */,
-				80FB5A7526962B3C001B4300 /* XR Lens@3x.png in Resources */,
-				80FB5A7126962B3C001B4300 /* XR Lens@2x.png in Resources */,
-				802423E52696435F00BD3305 /* 3 Lens@2x.png in Resources */,
-				80FB5A7626962B3C001B4300 /* SE Lens@3x.png in Resources */,
-				80FB5A7826962B3C001B4300 /* X Lens@2x.png in Resources */,
+				80AA457D2863372B001BEFC2 /* SE Lens@3x.png in Resources */,
+				80AA457C2863372B001BEFC2 /* 2 Lens@3x.png in Resources */,
+				80AA457F2863372B001BEFC2 /* 3 Lens@2x.png in Resources */,
+				80AA45852863374B001BEFC2 /* XR Lens@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +364,7 @@
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -374,7 +386,7 @@
 				DEVELOPMENT_TEAM = W7F94ZP22K;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Shoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -408,25 +420,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/twostraws/VisualEffects";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8045285F269223600019F97C /* VisualEffects */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8045285E269223600019F97C /* XCRemoteSwiftPackageReference "VisualEffects" */;
-			productName = VisualEffects;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 80FB2A7C2691F97F00D6790A /* Project object */;
 }

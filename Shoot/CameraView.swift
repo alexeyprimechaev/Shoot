@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import VisualEffects
 import AVFoundation
 
 
@@ -136,9 +135,11 @@ func changeIcon() {
     if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XS Max" {
         icon = "X Lens"
     } else if UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" {
+        icon = "2 Lens"
+    } else if UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
         icon = "3 Lens"
-    } else if UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 11 Pro"{
-        icon = nil
+    } else if UIDevice.modelName == "iPhone 13" || UIDevice.modelName == "iPhone 13 Mini" {
+        icon = "13 Lens"
     } else if UIDevice.modelName == "iPhone XR" {
         icon = "XR Lens"
     } else {

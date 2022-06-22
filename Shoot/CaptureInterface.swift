@@ -127,6 +127,8 @@ struct CameraIcon: View {
                 
                 if UIDevice.modelName == "iPhone 12 Pro Max" {
                     Text("65").font(.headline).fixedSize()
+                } else if UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
+                    Text("77").font(.headline).fixedSize()
                 } else {
                     Text("52").font(.headline).fixedSize()
                 }
@@ -136,7 +138,7 @@ struct CameraIcon: View {
                 
                 if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
                     Text("28").font(.headline).fixedSize()
-                } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
+                } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 13" || UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" || UIDevice.modelName == "iPhone 13 mini" {
                     Text("26").font(.headline).fixedSize()
                 } else {
                     Text("33").font(.headline).fixedSize()
@@ -214,8 +216,7 @@ struct CaptureButton: View {
             
         }.overlay(
             model.isCameraButtonDisabled ?
-                Circle().fill(
-                    AngularGradient(gradient: Gradient(colors: [.white, .white.opacity(0.5)]), center: .center)).frame(width: 65, height: 65, alignment: .center).rotationEffect(Angle(degrees: model.isCameraButtonDisabled ? 360 : 0)).animation(.default.repeatForever()) : nil
+            ProgressView().progressViewStyle(.circular).tint(.white) : nil
             
         )
     }
@@ -236,29 +237,31 @@ struct ConfigurationMenu: View {
                             Text("Telephoto")
                         } icon: {
                             if UIDevice.modelName == "iPhone 12 Pro Max" {
-                                Image("65.SFSymbol")
+                                Image("65.circle")
+                            } else if UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
+                                Image("77.circle")
                             } else {
-                                Image("52.SFSymbol")
+                                Image("52.circle")
                             }
                         }.tag(cameraType)
                     case .front:
-                        Label("Front", image: "FF.SFSymbol").tag(cameraType)
+                        Label("Front", systemImage: "f.circle").tag(cameraType)
                     case .wide:
                         Label {
                             Text("Wide")
                         } icon: {
                             if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
-                                Image("28.SFSymbol")
+                                Image(systemName: "28.circle")
                             } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
-                                Image("26.SFSymbol")
+                                Image(systemName: "26.circle")
                             } else {
-                                Image("33.SFSymbol")
+                                Image(systemName: "33.circle")
                             }
                             //                            Image("26.SFSymbol")
                             
                         }
                     case .ultrawide:
-                        Label("Ultrawide", image: "13.SFSymbol").tag(cameraType)
+                        Label("Ultrawide", systemImage: "13.circle").tag(cameraType)
                     }
                     
                 }

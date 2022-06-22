@@ -21,6 +21,24 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
+			<key>2 Lens</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>2 Lens</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>13 Lens</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>13 Lens</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>SE Lens</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
