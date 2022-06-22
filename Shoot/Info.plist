@@ -12,11 +12,11 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>3 Lens</key>
+			<key>13 Lens</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>3 Lens</string>
+					<string>13 Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -30,11 +30,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>13 Lens</key>
+			<key>3 Lens</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>13 Lens</string>
+					<string>3 Lens</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
@@ -105,6 +105,8 @@
 	<false/>
 	<key>UIStatusBarHidden</key>
 	<false/>
+	<key>UIStatusBarStyle</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

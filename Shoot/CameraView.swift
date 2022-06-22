@@ -30,7 +30,7 @@ struct CameraView: View {
 //                        .scaledToFill()
                         .aspectRatio(3/4, contentMode: .fit)
 //                        .onTapGesture {
-//                            if selectedImage < 20 {
+//                            if selectedImage < 11 {
 //                                selectedImage += 1
 //                            } else {
 //                                selectedImage = 1
@@ -43,13 +43,14 @@ struct CameraView: View {
                         }
                     }
                     
-                    if model.showGrid {
-                        if model.gridFormat == .square {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5)
-                        } else {
-                            GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5)
+                        if model.showGrid {
+                            if model.gridFormat == .square {
+                                GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(1, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5).animation(.easeOut(duration: 0.2), value: model.willCapturePhoto).frame(width: 390, height: 390)
+                            } else {
+                                GridView(numberOfLines: $model.gridLines, gridFormat: model.gridFormat).aspectRatio(3/4, contentMode: .fit).opacity(model.willCapturePhoto ? 1 : 0.5).animation(.easeOut(duration: 0.2), value: model.willCapturePhoto)
+                            }
                         }
-                    }
+                    
                 }
                     
                 
