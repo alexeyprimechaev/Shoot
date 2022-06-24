@@ -313,14 +313,22 @@ struct ConfigurationMenu: View {
                     
                     Divider()
                     
-                    Link(destination: URL(string: "https://twitter.com/stopUIKit")!) {
-                        Label("Igor Dyachuk", image: "igor")
+                    Link(destination: URL(string: "https://twitter.com/igor_______2_")!) {
+                        Label {
+                            Text("Igor Dyachuk")
+                        } icon: {
+                            Image("keks").clipShape(Circle())
+                        }
                     }
                     Link(destination: URL(string: "https://twitter.com/FetchRequested")!) {
-                        Label("Alexey Primechaev", image: "alesha")
+                        Label {
+                            Text("Alexey Primechaev")
+                        } icon: {
+                            Image("leks").clipShape(Circle())
+                        }
                     }
                     Divider()
-                    Text("Made in Moscow with ❤️")
+                    Text("Made by LEKSKEKS\nwith ❤️")
                     Divider()
                     
                     
