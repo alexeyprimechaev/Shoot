@@ -155,9 +155,6 @@ public class CameraService: NSObject {
                 return
             }
             
-            for i in videoDevice.activeFormat.supportedMaxPhotoDimensions {
-                print(i, "helloooo")
-            }
             
             let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
             
@@ -194,6 +191,8 @@ public class CameraService: NSObject {
             if captureFormat == .proRAW && photoOutput.isAppleProRAWSupported {
                 photoOutput.isAppleProRAWEnabled = true
             }
+            
+            photoOutput.isHighResolutionCaptureEnabled = true
             
             if selectedCamera == .wide, self.captureFormat == .proRAW, photoOutput.isAppleProRAWSupported {
                 if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max { $0.height < $1.height } {
@@ -382,6 +381,7 @@ public class CameraService: NSObject {
                 
                 var photoSettings = AVCapturePhotoSettings(format: processedFormat)
                 
+                
                 // Retrieve the RAW format, favoring Apple ProRAW when enabled.
                 if let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRAW ? proRAWQuery : rawQuery) {
                     
@@ -394,6 +394,8 @@ public class CameraService: NSObject {
                     
                     
                 }
+                
+                
                 
                
                 
@@ -413,6 +415,11 @@ public class CameraService: NSObject {
                 
                 if self.captureFormat != .raw {
                     photoSettings.photoQualityPrioritization = .quality
+                }
+                
+                if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max { $0.height < $1.height } {
+                    print("LARGEST FORMAT", largestFormat)
+                    photoSettings.maxPhotoDimensions = largestFormat
                 }
                 
                 if photoSettings.availablePreviewPhotoPixelFormatTypes.count > 0 {

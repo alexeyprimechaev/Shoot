@@ -26,7 +26,7 @@ struct CaptureInterface: View {
             
             
             CaptureButton(model: model)
-            .position(x: geometry.size.width/2)
+                .position(x: geometry.size.width/2)
             
             
             ConfigurationMenu(model: model)
@@ -111,10 +111,10 @@ struct CameraIcon: View {
     
     var body: some View {
         ZStack {
-            if availableDeviceTypes().count >= 4 {
-                if selectedCamera == .front {
-                    Image(systemName: "f.circle").symbolVariant(selectedCamera == .front ? .fill : .none).transition(.opacity)
-                } else {
+            if selectedCamera == .front {
+                Image(systemName: "f.circle").symbolVariant(selectedCamera == .front ? .fill : .none).transition(.opacity)
+            } else {
+                if availableDeviceTypes().count >= 4 {
                     HStack(spacing: 0.5 * sqrt(3)) {
                         VStack(spacing: 3) {
                             Image(systemName: "circle").symbolVariant(selectedCamera == .telephoto ? .fill : .none)
@@ -126,13 +126,19 @@ struct CameraIcon: View {
                         }
                         Image(systemName: "circle").symbolVariant(selectedCamera == .ultrawide ? .fill : .none)
                     }.transition(.opacity)
+                } else if availableDeviceTypes().count == 3 {
+                    VStack(spacing: 3) {
+                        Image(systemName: "circle").symbolVariant(selectedCamera == .telephoto || selectedCamera == .ultrawide ? .fill : .none)
+                        
+                        Image(systemName: "circle").symbolVariant(selectedCamera == .wide ? .fill : .none)
+                    }
+                    
+                } else {
+                    Image(systemName: "circle").symbolVariant(selectedCamera == .wide ? .fill : .none)
                 }
-            } else if availableDeviceTypes().count == 3 {
-                
-                
-            } else {
-                
             }
+            
+            
             
         }.font(.system(size: 17))
     }
@@ -187,7 +193,7 @@ struct CaptureButton: View {
                     .foregroundColor(.white)
                     .frame(width: 65, height: 65, alignment: .center)
                     .opacity(model.isCameraButtonDisabled ? 0.0 : 1)
-                    
+                
                 
                 
             }
@@ -213,7 +219,7 @@ struct ConfigurationMenu: View {
         Menu {
             Picker(selection: $model.selectedCamera, label: Text("Selected Camera"), content: {
                 ForEach(availableDeviceTypes(), id: \.self) { cameraType in
-//                ForEach(CameraType.allCases, id: \.self) { cameraType in
+                    //                ForEach(CameraType.allCases, id: \.self) { cameraType in
                     switch cameraType {
                     case .telephoto:
                         Label {
@@ -230,13 +236,13 @@ struct ConfigurationMenu: View {
                             Image(systemName: "w.circle")
                             
                         }.tag(cameraType)
-                   
-                    
+                        
+                        
                     case .ultrawide:
                         Label("Ultrawide", systemImage: "u.circle").tag(cameraType)
                     case .front:
                         Label("Front", systemImage: "f.circle").tag(cameraType)
-                    
+                        
                     }
                     
                     
