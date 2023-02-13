@@ -109,7 +109,6 @@ public class CameraService: NSObject {
             
             let preferredPosition: AVCaptureDevice.Position
             let preferredDeviceType: AVCaptureDevice.DeviceType
-            let nativeZoomFactor: CGFloat
             
             if let zoomFactors =  defaultVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors {
                 if zoomFactors.count > 0 {
@@ -124,23 +123,18 @@ public class CameraService: NSObject {
             case .front:
                 preferredPosition = .front
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = 1
             case .wide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = 1
             case .ultrawide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInUltraWideCamera
-                nativeZoomFactor = 1
             case .telephoto:
                 preferredPosition = .back
                 preferredDeviceType = .builtInTelephotoCamera
-                nativeZoomFactor = 1
             case .widezoom:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = defaultVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
             }
             
             
@@ -199,6 +193,13 @@ public class CameraService: NSObject {
             
             if captureFormat == .proRAW && photoOutput.isAppleProRAWSupported {
                 photoOutput.isAppleProRAWEnabled = true
+            }
+            
+            if selectedCamera == .wide, self.captureFormat == .proRAW, photoOutput.isAppleProRAWSupported {
+                if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max { $0.height < $1.height } {
+                    print("LARGEST FORMAT", largestFormat)
+                    photoOutput.maxPhotoDimensions = largestFormat
+                }
             }
             
             
@@ -279,29 +280,23 @@ public class CameraService: NSObject {
             
             let preferredPosition: AVCaptureDevice.Position
             let preferredDeviceType: AVCaptureDevice.DeviceType
-            let nativeZoomFactor: CGFloat
             
             switch self.selectedCamera {
             case .front:
                 preferredPosition = .front
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = 1
             case .wide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = 1
             case .ultrawide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInUltraWideCamera
-                nativeZoomFactor = 1
             case .telephoto:
                 preferredPosition = .back
                 preferredDeviceType = .builtInTelephotoCamera
-                nativeZoomFactor = 1
             case .widezoom:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
-                nativeZoomFactor = newVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
             }
             
             
@@ -339,7 +334,6 @@ public class CameraService: NSObject {
                     
                     self.photoOutput.maxPhotoQualityPrioritization = .quality
                     
-                    self.photoOutput.isHighResolutionCaptureEnabled = true
                     if self.captureFormat == .proRAW && self.photoOutput.isAppleProRAWSupported {
                         self.photoOutput.isAppleProRAWEnabled = true
                     }
@@ -347,8 +341,9 @@ public class CameraService: NSObject {
                     if self.selectedCamera == .widezoom {
                         self.videoDeviceInput.device.videoZoomFactor = newVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
                     }
-                    if self.selectedCamera == .wide {
-                        if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max { $0.height < $1.height} {
+                    
+                    if self.selectedCamera == .wide, self.captureFormat == .proRAW, self.photoOutput.isAppleProRAWSupported {
+                        if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max(by: { $0.height < $1.height }) {
                             print("LARGEST FORMAT", largestFormat)
                             self.photoOutput.maxPhotoDimensions = largestFormat
                         }

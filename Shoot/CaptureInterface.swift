@@ -111,14 +111,18 @@ struct CameraIcon: View {
     
     var body: some View {
         ZStack {
-            if availableDeviceTypes().count == 4 {
+            if availableDeviceTypes().count >= 4 {
                 if selectedCamera == .front {
                     Image(systemName: "f.circle").symbolVariant(selectedCamera == .front ? .fill : .none).transition(.opacity)
                 } else {
                     HStack(spacing: 0.5 * sqrt(3)) {
                         VStack(spacing: 3) {
                             Image(systemName: "circle").symbolVariant(selectedCamera == .telephoto ? .fill : .none)
-                            Image(systemName: "circle").symbolVariant(selectedCamera == .wide ? .fill : .none)
+                            if selectedCamera == .widezoom {
+                                Image(systemName: "2.circle").symbolVariant(selectedCamera == .widezoom ? .fill : .none)
+                            } else {
+                                Image(systemName: "circle").symbolVariant(selectedCamera == .wide ? .fill : .none)
+                            }
                         }
                         Image(systemName: "circle").symbolVariant(selectedCamera == .ultrawide ? .fill : .none)
                     }.transition(.opacity)
@@ -218,7 +222,7 @@ struct ConfigurationMenu: View {
                             Image(systemName: "t.circle")
                         }.tag(cameraType)
                     case .widezoom:
-                        Label("2x", systemImage: "2.circle").tag(cameraType)
+                        Label("Wide 2x", systemImage: "2.circle").tag(cameraType)
                     case .wide:
                         Label {
                             Text("Wide")

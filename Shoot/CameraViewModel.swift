@@ -52,7 +52,13 @@ func availableDeviceTypes() -> [CameraType] {
         }
     }
     
+    for device in devices {
+        if device.activeFormat.secondaryNativeResolutionZoomFactors.count != 0 {
+            availableDeviceTypes.append(CameraType.widezoom)
+        }
+    }
     
+    availableDeviceTypes.sort {$0.rawValue < $1.rawValue}
     return availableDeviceTypes
 }
 
@@ -73,7 +79,7 @@ func availableDeviceTypes() -> [CameraType] {
 //}
 
 public enum CameraType: String, CaseIterable {
-    case ultrawide, wide, widezoom, telephoto, front
+    case ultrawide = "1", wide = "2", widezoom = "3", telephoto = "4", front = "0"
 }
 
 public let defaultsStored = UserDefaults.standard
