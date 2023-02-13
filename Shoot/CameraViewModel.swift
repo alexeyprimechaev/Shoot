@@ -51,6 +51,8 @@ func availableDeviceTypes() -> [CameraType] {
             availableDeviceTypes.append(cameraTypeIn)
         }
     }
+    
+    
     return availableDeviceTypes
 }
 
@@ -71,7 +73,7 @@ func availableDeviceTypes() -> [CameraType] {
 //}
 
 public enum CameraType: String, CaseIterable {
-    case ultrawide, wide, telephoto, front
+    case ultrawide, wide, widezoom, telephoto, front
 }
 
 public let defaultsStored = UserDefaults.standard
@@ -210,8 +212,9 @@ final class CameraViewModel: ObservableObject {
         service.configureSession()
     }
     
-    func capturePhoto() {
-        service.capturePhoto()
+    func capturePhoto() async {
+        await service.capturePhoto()
+        
     }
     
     func changeCamera() {

@@ -27,6 +27,8 @@ public class CameraService: NSObject {
     @Published public var isCameraUnavailable = true
     @Published public var photo: Photo?
     @Published public var isProRawAvailable = false
+    @Published public var isWideZoomAvailable = false
+    @Published public var maxDimensions = CMVideoDimensions()
     
     public var alertError: AlertError = AlertError()
     
@@ -99,27 +101,49 @@ public class CameraService: NSObject {
         
         session.sessionPreset = .photo
         
+        
+        
         // Add video input.
         do {
             var defaultVideoDevice: AVCaptureDevice?
             
             let preferredPosition: AVCaptureDevice.Position
             let preferredDeviceType: AVCaptureDevice.DeviceType
+            let nativeZoomFactor: CGFloat
+            
+            if let zoomFactors =  defaultVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors {
+                if zoomFactors.count > 0 {
+                    isWideZoomAvailable = true
+                } else {
+                    isWideZoomAvailable = false
+                }
+                
+            }
             
             switch self.selectedCamera {
             case .front:
                 preferredPosition = .front
                 preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = 1
             case .wide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = 1
             case .ultrawide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInUltraWideCamera
+                nativeZoomFactor = 1
             case .telephoto:
                 preferredPosition = .back
                 preferredDeviceType = .builtInTelephotoCamera
+                nativeZoomFactor = 1
+            case .widezoom:
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = defaultVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
             }
+            
+            
             
             let devices = self.videoDeviceDiscoverySession.devices
             
@@ -137,11 +161,18 @@ public class CameraService: NSObject {
                 return
             }
             
+            for i in videoDevice.activeFormat.supportedMaxPhotoDimensions {
+                print(i, "helloooo")
+            }
+            
             let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
             
             if session.canAddInput(videoDeviceInput) {
                 session.addInput(videoDeviceInput)
                 self.videoDeviceInput = videoDeviceInput
+                if self.selectedCamera == .widezoom {
+                    videoDeviceInput.device.videoZoomFactor = defaultVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
+                }
                 
             } else {
                 print("Couldn't add video device input to the session.")
@@ -160,7 +191,7 @@ public class CameraService: NSObject {
         if session.canAddOutput(photoOutput) {
             session.addOutput(photoOutput)
             
-            photoOutput.isHighResolutionCaptureEnabled = true
+//            photoOutput.maxPhotoDimensions = maxDimensions
             photoOutput.maxPhotoQualityPrioritization = .quality
             
             
@@ -243,26 +274,37 @@ public class CameraService: NSObject {
         
         sessionQueue.async {
             
+            let devices = self.videoDeviceDiscoverySession.devices
+            var newVideoDevice: AVCaptureDevice? = nil
+            
             let preferredPosition: AVCaptureDevice.Position
             let preferredDeviceType: AVCaptureDevice.DeviceType
+            let nativeZoomFactor: CGFloat
             
             switch self.selectedCamera {
             case .front:
                 preferredPosition = .front
                 preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = 1
             case .wide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = 1
             case .ultrawide:
                 preferredPosition = .back
                 preferredDeviceType = .builtInUltraWideCamera
+                nativeZoomFactor = 1
             case .telephoto:
                 preferredPosition = .back
                 preferredDeviceType = .builtInTelephotoCamera
+                nativeZoomFactor = 1
+            case .widezoom:
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
+                nativeZoomFactor = newVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
             }
             
-            let devices = self.videoDeviceDiscoverySession.devices
-            var newVideoDevice: AVCaptureDevice? = nil
+            
             
             
             if let device = devices.first(where: { $0.position == preferredPosition && $0.deviceType == preferredDeviceType }) {
@@ -272,6 +314,7 @@ public class CameraService: NSObject {
             }
             
             if let videoDevice = newVideoDevice {
+                
                 do {
                     let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
                     
@@ -296,6 +339,23 @@ public class CameraService: NSObject {
                     
                     self.photoOutput.maxPhotoQualityPrioritization = .quality
                     
+                    self.photoOutput.isHighResolutionCaptureEnabled = true
+                    if self.captureFormat == .proRAW && self.photoOutput.isAppleProRAWSupported {
+                        self.photoOutput.isAppleProRAWEnabled = true
+                    }
+                    
+                    if self.selectedCamera == .widezoom {
+                        self.videoDeviceInput.device.videoZoomFactor = newVideoDevice?.activeFormat.secondaryNativeResolutionZoomFactors.first ?? 1
+                    }
+                    if self.selectedCamera == .wide {
+                        if let largestFormat = self.videoDeviceInput.device.activeFormat.supportedMaxPhotoDimensions.max { $0.height < $1.height} {
+                            print("LARGEST FORMAT", largestFormat)
+                            self.photoOutput.maxPhotoDimensions = largestFormat
+                        }
+                    }
+                    
+                    
+                    
                     self.session.commitConfiguration()
                 } catch {
                     print("Error occurred while creating video device input: \(error)")
@@ -309,9 +369,8 @@ public class CameraService: NSObject {
         }
     }
     
-    public func capturePhoto() {
+    public func capturePhoto() async {
         if self.setupResult != .configurationFailed {
-            self.isCameraButtonDisabled = true
             
             sessionQueue.async {
                 if let photoOutputConnection = self.photoOutput.connection(with: .video) {
@@ -332,9 +391,12 @@ public class CameraService: NSObject {
                 if let rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.first(where:  self.captureFormat == .proRAW ? proRAWQuery : rawQuery) {
                     
                     if self.captureFormat != .heif {
+                        print(self.captureFormat, "HEREEEE")
+                        print(rawFormat)
                         
                         photoSettings = AVCapturePhotoSettings(rawPixelFormatType: rawFormat, processedFormat: processedFormat)
                     }
+                    
                     
                 }
                 
@@ -348,7 +410,7 @@ public class CameraService: NSObject {
                     photoSettings.flashMode = self.flashMode
                 }
                 
-                photoSettings.isHighResolutionPhotoEnabled = true
+//                photoSettings.maxPhotoDimensions = self.maxDimensions
                 // Sets the preview thumbnail pixel format
                 if !photoSettings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                     photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]

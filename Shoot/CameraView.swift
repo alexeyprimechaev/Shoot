@@ -137,9 +137,9 @@ func changeIcon() {
         icon = "X Lens"
     } else if UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" {
         icon = "2 Lens"
-    } else if UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
+    } else if UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" || UIDevice.modelName == "iPhone 14 Pro" || UIDevice.modelName == "iPhone 14 Pro Max" {
         icon = "3 Lens"
-    } else if UIDevice.modelName == "iPhone 13" || UIDevice.modelName == "iPhone 13 Mini" {
+    } else if UIDevice.modelName == "iPhone 13" || UIDevice.modelName == "iPhone 13 Mini" || UIDevice.modelName == "iPhone 14 Plus" || UIDevice.modelName == "iPhone 14" {
         icon = "13 Lens"
     } else if UIDevice.modelName == "iPhone XR" {
         icon = "XR Lens"

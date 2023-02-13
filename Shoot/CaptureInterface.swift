@@ -31,17 +31,6 @@ struct CaptureInterface: View {
             
             ConfigurationMenu(model: model)
                 .rotationEffect(rotation)
-                .animation(.easeOut(duration: 0.2))
-                .onRotate { newRotation in
-                    if newRotation == .landscapeLeft {
-                        rotation = Angle(degrees: 90)
-                    } else if newRotation == .landscapeRight {
-                        rotation = Angle(degrees: -90)
-                    } else {
-                        rotation = Angle(degrees: 0)
-                    }
-                }
-            
                 .position(x: geometry.size.width - (geometry.size.width - (geometry.size.width + 73)/2)/2)
                 .frame(height: 73)
             
@@ -58,8 +47,8 @@ struct TitleButtonStyle: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.9 : 1.0)
-            .animation(.easeOut(duration: 0.2))
+            .scaleEffect(configuration.isPressed ? 0.8 : 1.0)
+            .animation(.default, value: configuration.isPressed)
             .onChange(of: configuration.isPressed) { newValue in
                 if newValue == true {
                     regularHaptic()
@@ -121,39 +110,27 @@ struct CameraIcon: View {
     @Binding var selectedCamera: CameraType
     
     var body: some View {
-        VStack {
-            switch selectedCamera {
-            case .telephoto:
-                
-                if UIDevice.modelName == "iPhone 12 Pro Max" {
-                    Text("65").font(.headline).fixedSize()
-                } else if UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
-                    Text("77").font(.headline).fixedSize()
+        ZStack {
+            if availableDeviceTypes().count == 4 {
+                if selectedCamera == .front {
+                    Image(systemName: "f.circle").symbolVariant(selectedCamera == .front ? .fill : .none).transition(.opacity)
                 } else {
-                    Text("52").font(.headline).fixedSize()
+                    HStack(spacing: 0.5 * sqrt(3)) {
+                        VStack(spacing: 3) {
+                            Image(systemName: "circle").symbolVariant(selectedCamera == .telephoto ? .fill : .none)
+                            Image(systemName: "circle").symbolVariant(selectedCamera == .wide ? .fill : .none)
+                        }
+                        Image(systemName: "circle").symbolVariant(selectedCamera == .ultrawide ? .fill : .none)
+                    }.transition(.opacity)
                 }
-               
+            } else if availableDeviceTypes().count == 3 {
                 
-            case .wide:
                 
-                if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
-                    Text("28").font(.headline).fixedSize()
-                } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" || UIDevice.modelName == "iPhone 13" || UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" || UIDevice.modelName == "iPhone 13 mini" {
-                    Text("26").font(.headline).fixedSize()
-                } else {
-                    Text("33").font(.headline).fixedSize()
-                }
-
-            case .ultrawide:
-                Text("13").font(.headline).fixedSize()
-            case .front:
-                Text("F").font(.headline).fixedSize()
-            }
-            if selectedCamera != .front {
-                Text("mm").font(.caption).fixedSize()
+            } else {
+                
             }
             
-        }
+        }.font(.system(size: 17))
     }
 }
 
@@ -198,7 +175,9 @@ struct CaptureButton: View {
         ZStack {
             Button {
                 model.willCapturePhoto = true
-                model.capturePhoto()
+                Task {
+                    await model.capturePhoto()
+                }
             } label: {
                 Circle()
                     .foregroundColor(.white)
@@ -236,33 +215,26 @@ struct ConfigurationMenu: View {
                         Label {
                             Text("Telephoto")
                         } icon: {
-                            if UIDevice.modelName == "iPhone 12 Pro Max" {
-                                Image("65.circle")
-                            } else if UIDevice.modelName == "iPhone 13 Pro" || UIDevice.modelName == "iPhone 13 Pro Max" {
-                                Image("77.circle")
-                            } else {
-                                Image("52.circle")
-                            }
+                            Image(systemName: "t.circle")
                         }.tag(cameraType)
-                    case .front:
-                        Label("Front", systemImage: "f.circle").tag(cameraType)
+                    case .widezoom:
+                        Label("2x", systemImage: "2.circle").tag(cameraType)
                     case .wide:
                         Label {
                             Text("Wide")
                         } icon: {
-                            if UIDevice.modelName == "iPhone X" || UIDevice.modelName == "iPhone 7 Plus" || UIDevice.modelName == "iPhone 8 Plus" || UIDevice.modelName == "iPhone 7" || UIDevice.modelName == "iPhone 8"{
-                                Image(systemName: "28.circle")
-                            } else if UIDevice.modelName == "iPhone XS Max" || UIDevice.modelName == "iPhone XS" || UIDevice.modelName == "iPhone XR" || UIDevice.modelName == "iPhone 11" || UIDevice.modelName == "iPhone 11 Pro" || UIDevice.modelName == "iPhone 11 Pro Max" || UIDevice.modelName == "iPhone 12" || UIDevice.modelName == "iPhone 12 mini" || UIDevice.modelName == "iPhone 12 Pro" || UIDevice.modelName == "iPhone 12 Pro Max" {
-                                Image(systemName: "26.circle")
-                            } else {
-                                Image(systemName: "33.circle")
-                            }
-                            //                            Image("26.SFSymbol")
+                            Image(systemName: "w.circle")
                             
-                        }
+                        }.tag(cameraType)
+                   
+                    
                     case .ultrawide:
-                        Label("Ultrawide", systemImage: "13.circle").tag(cameraType)
+                        Label("Ultrawide", systemImage: "u.circle").tag(cameraType)
+                    case .front:
+                        Label("Front", systemImage: "f.circle").tag(cameraType)
+                    
                     }
+                    
                     
                 }
                 
@@ -297,7 +269,7 @@ struct ConfigurationMenu: View {
             Menu {
                 Menu {
                     
-                    Text("1.0 “Uno”")
+                    Text("2.0 “Async/Await”")
                     
                     Divider()
                     
