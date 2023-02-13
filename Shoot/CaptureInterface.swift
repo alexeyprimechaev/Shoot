@@ -218,7 +218,7 @@ struct ConfigurationMenu: View {
     var body: some View {
         Menu {
             Picker(selection: $model.selectedCamera, label: Text("Selected Camera"), content: {
-                ForEach(availableDeviceTypes(), id: \.self) { cameraType in
+                ForEach(availableDeviceTypes(captureFormat: model.captureFormat), id: \.self) { cameraType in
                     //                ForEach(CameraType.allCases, id: \.self) { cameraType in
                     switch cameraType {
                     case .telephoto:

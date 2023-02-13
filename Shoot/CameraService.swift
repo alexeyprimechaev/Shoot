@@ -22,7 +22,7 @@ public class CameraService: NSObject {
     @Published public var shouldShowAlertView = false
     @Published public var shouldShowSpinner = false
     @Published public var willCapturePhoto = false
-    @Published public var captureFormat: CaptureFormat = .raw
+    @Published public var captureFormat: CaptureFormat = .proRAW
     @Published public var isCameraButtonDisabled = true
     @Published public var isCameraUnavailable = true
     @Published public var photo: Photo?
@@ -442,11 +442,11 @@ public class CameraService: NSObject {
                 let RAWphotoCaptureProcessor = RawPhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
                     // Tells the UI to flash the screen to signal that SwiftCamera took a photo.
                     DispatchQueue.main.async {
-                        self.willCapturePhoto.toggle()
+                        self.willCapturePhoto = true
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        self.willCapturePhoto.toggle()
+                        self.willCapturePhoto = false
                     }
                     
                 }, completionHandler: { (photoCaptureProcessor) in

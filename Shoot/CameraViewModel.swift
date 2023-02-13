@@ -39,7 +39,7 @@ enum GridFormat: String {
     case square, full
 }
 
-func availableDeviceTypes() -> [CameraType] {
+func availableDeviceTypes(captureFormat: CaptureFormat = .proRAW) -> [CameraType] {
     var availableDeviceTypes = [CameraType]()
     
     let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInTelephotoCamera, .builtInUltraWideCamera], mediaType: .video, position: .unspecified)
@@ -52,9 +52,11 @@ func availableDeviceTypes() -> [CameraType] {
         }
     }
     
-    for device in devices {
-        if device.activeFormat.secondaryNativeResolutionZoomFactors.count != 0 {
-            availableDeviceTypes.append(CameraType.widezoom)
+    if captureFormat != .raw {
+        for device in devices {
+            if device.activeFormat.secondaryNativeResolutionZoomFactors.count != 0 {
+                availableDeviceTypes.append(CameraType.widezoom)
+            }
         }
     }
     
