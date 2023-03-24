@@ -188,6 +188,10 @@ public class CameraService: NSObject {
             
             isProRawAvailable = photoOutput.isAppleProRAWSupported
             
+            print("HERE HERE")
+            print(isProRawAvailable)
+            print("HERE HERE")
+            
             if captureFormat == .proRAW && photoOutput.isAppleProRAWSupported {
                 photoOutput.isAppleProRAWEnabled = true
             }
